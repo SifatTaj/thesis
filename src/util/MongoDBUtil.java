@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @author Sifat Taj
  */
-public class Util {
+public class MongoDBUtil {
     public static MongoDatabase connectMongoDB(String uri, String databaseName) {
         MongoClientURI clientURI = new MongoClientURI(uri);
         MongoClient mongoClient = new MongoClient(clientURI);
