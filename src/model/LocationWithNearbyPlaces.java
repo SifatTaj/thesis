@@ -20,15 +20,7 @@ public class LocationWithNearbyPlaces {
         return location;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public ArrayList<LocDistance> getPlaces() {
         return places;
-    }
-
-    public void setPlaces(ArrayList<LocDistance> places) {
-        this.places = places;
     }
 }

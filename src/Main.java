@@ -1,9 +1,13 @@
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import core.Algorithm;
+import model.LocationWithNearbyPlaces;
 import model.ReferencePoint;
 import util.Util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Main {
 
@@ -18,6 +22,9 @@ public class Main {
         MongoCollection rpCollection = Util.fetchCollection(fingerprintDatabase, rpCollectionName);
 
         ArrayList<ReferencePoint> referencePoints = Util.populateFingerprintDataSet(apCollection, rpCollection);
+
+//        LocationWithNearbyPlaces location = Algorithm.KNN_WKNN_Algorithm(referencePoints, test, "4", true);
+//        System.out.println(location.getLocationΩocation());
     }
 }
 

@@ -2,16 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db354a14-0d5b-4eb2-9e9c-c8056ac3a91a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/core/Algorithm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/AccessPoint.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/LocDistance.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/LocationWithNearbyPlaces.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/ReferencePoint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/Fingerprint.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Thesis/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Fingerprint.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/model/LocDistance.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/model/LocDistance.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/model/LocationWithNearbyPlaces.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/model/LocationWithNearbyPlaces.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/Algorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/Algorithm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/LocDistance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/LocDistance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/LocationWithNearbyPlaces.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/LocationWithNearbyPlaces.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/ReferencePoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/ReferencePoint.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -92,5 +92,26 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/core/Algorithm.java</url>
+          <line>129</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/core/Algorithm.java</url>
+          <line>132</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/core/Algorithm.java</url>
+          <line>135</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
