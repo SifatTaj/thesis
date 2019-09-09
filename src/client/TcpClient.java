@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.*;
 import java.util.Enumeration;
 
-public class TCPClient {
+public class TcpClient {
 
     public static void requestLocation(String observedRSSValues) {
 
