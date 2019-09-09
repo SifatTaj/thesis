@@ -1,5 +1,7 @@
+import client.TCPClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import core.TCPServer;
 import model.ReferencePoint;
 import util.MongoDBHelper;
 
@@ -19,8 +21,7 @@ public class Main {
 
         ArrayList<ReferencePoint> referencePoints = MongoDBHelper.populateFingerprintDataSet(apCollection, rpCollection);
 
-//        LocationWithNearbyPlaces location = Algorithm.KNN_WKNN_Algorithm(referencePoints, test, "4", true);
-//        System.out.println(location.getLocationΩocation());
+        TCPServer.run(referencePoints);
     }
 }
 

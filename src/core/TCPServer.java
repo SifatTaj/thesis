@@ -1,32 +1,52 @@
 package core;
 
+import model.LocationWithNearbyPlaces;
+import model.ReferencePoint;
+
 import java.io.*;
 import java.net.*;
-import java.util.Scanner;
+import java.util.ArrayList;
 
-class Server {
-    public static void main(String args[]) throws Exception {
+public class TCPServer {
+    private static ArrayList<Float> stringToList(String string) {
+        String[] array = string.split(" ");
+        ArrayList<Float> list = new ArrayList<Float>();
 
+        try {
+            for (String s : array) {
+                list.add(Float.valueOf(s.trim()).floatValue());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public static void run(ArrayList<ReferencePoint> referencePoints) {
 //        Thread discoveryThread = new Thread(DiscoveryThread.getInstance());
 //        discoveryThread.start();
-
-        String filename = "lorem.rtf";
-
-        while (true) {
+        try {
             ServerSocket serverSocket = new ServerSocket(5000);
-            System.out.println("Waiting for request");
-            Socket socket = serverSocket.accept();
-            DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
-            DataInputStream dis = new DataInputStream(socket.getInputStream());
 
-            try {
-                dos.writeUTF(dis.readUTF());
-                dos.flush();
-            } catch (Exception e) {
-                e.printStackTrace();
+            while (true) {
+                System.out.println("Fingerprint server is running");
+                Socket socket = serverSocket.accept();
+                DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
+                DataInputStream dis = new DataInputStream(socket.getInputStream());
+
+                try {
+                    String observedRSSValues = dis.readUTF();
+                    ArrayList<Float> observedRSSList = stringToList(observedRSSValues);
+                    LocationWithNearbyPlaces location = Algorithms.KNN_WKNN_Algorithm(referencePoints, observedRSSList, "4", true);
+                    dos.writeUTF(location.getLocation());
+                    dos.flush();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
-            socket.close();
-            serverSocket.close();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
         }
     }
 }
@@ -56,8 +76,8 @@ class DiscoveryThread implements Runnable {
 
                 //See if the packet holds the right command (message)
                 String message = new String(packet.getData()).trim();
-                if (message.equals("DISCOVER_FUIFSERVER_REQUEST")) {
-                    byte[] sendData = "DISCOVER_FUIFSERVER_RESPONSE".getBytes();
+                if (message.equals("DISCOVER_FINGERPRINTSERVER_REQUEST")) {
+                    byte[] sendData = "DISCOVER_FINGERPRINTSERVER_REQUEST".getBytes();
 
                     //Send a response
                     DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, packet.getAddress(), packet.getPort());
@@ -76,7 +96,6 @@ class DiscoveryThread implements Runnable {
     }
 
     private static class DiscoveryThreadHolder {
-
         private static final DiscoveryThread INSTANCE = new DiscoveryThread();
     }
 
