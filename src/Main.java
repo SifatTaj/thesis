@@ -1,6 +1,7 @@
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import core.TCPServer;
+import core.NdnProducer;
+import core.TcpServer;
 import model.ReferencePoint;
 import util.MongoDBHelper;
 
@@ -20,7 +21,8 @@ public class Main {
 
         ArrayList<ReferencePoint> referencePoints = MongoDBHelper.populateFingerprintDataSet(apCollection, rpCollection);
 
-        TCPServer.run(referencePoints);
+//        TcpServer.run(referencePoints);
+        NdnProducer.run(referencePoints);
     }
 }
 

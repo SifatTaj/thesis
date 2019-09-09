@@ -2,16 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db354a14-0d5b-4eb2-9e9c-c8056ac3a91a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/util/DiscoverFingerprintServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client/NdnConsumer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/core/NdnProducer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/util/RsaKeyGen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Thesis.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Thesis.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Thesis/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/client/Client.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/client/TCPClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/client/TCPClient.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread$DiscoveryThreadHolder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread$DiscoveryThreadHolder.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/Server.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/TCPServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/TCPServer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/TCPClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/TCPClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/TCPServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/TCPServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/TcpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/TcpServer.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,6 +37,9 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -53,7 +58,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.TCPClient">
+  <component name="RunManager" selected="Application.NdnConsumer">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="client.Client" />
       <module name="Thesis" />
@@ -74,6 +79,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="NdnConsumer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="client.NdnConsumer" />
+      <module name="Thesis" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="core.Server" />
       <module name="Thesis" />
@@ -87,8 +105,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TCPClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="client.TCPClient" />
+    <configuration name="TcpClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="client.TcpClient" />
       <module name="Thesis" />
       <extension name="coverage">
         <pattern>
@@ -102,8 +120,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.TCPClient" />
+        <item itemvalue="Application.NdnConsumer" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.TcpClient" />
         <item itemvalue="Application.Server" />
         <item itemvalue="Application.Client" />
       </list>

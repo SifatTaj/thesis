@@ -7,8 +7,8 @@ import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 
-public class TCPServer {
-    private static ArrayList<Float> stringToList(String string) {
+public class TcpServer {
+    private static ArrayList<Float> toList(String string) {
         String[] array = string.split(" ");
         ArrayList<Float> list = new ArrayList<Float>();
 
@@ -37,7 +37,7 @@ public class TCPServer {
 
                 try {
                     String observedRSSValues = dis.readUTF();
-                    ArrayList<Float> observedRSSList = stringToList(observedRSSValues);
+                    ArrayList<Float> observedRSSList = toList(observedRSSValues);
                     LocationWithNearbyPlaces location = Algorithms.KNN_WKNN_Algorithm(referencePoints, observedRSSList, "4", true);
                     dos.writeUTF(location.getLocation());
                     dos.flush();
