@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class Algorithm {
+public class Algorithms {
     public static LocationWithNearbyPlaces KNN_WKNN_Algorithm(ArrayList<ReferencePoint> recordedRSSValue, ArrayList<Float> observedRSSValues, String parameter, boolean isWeighted) {
 
         ArrayList<AccessPoint> rssValues;

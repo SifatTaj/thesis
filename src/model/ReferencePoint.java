@@ -12,7 +12,7 @@ public class ReferencePoint {
 //    Important: must set it as: x y (space in between)
     private String locId;
 //    Important: These readings list count must be equal to the number of APS in area.
-//    If some AP is not accesible at this RP then put the least RSS value i.e. NaN in Algorithms.java
+//    If some AP is not accessible at this RP then put the least RSS value i.e. NaN in Algorithms.java
     private ArrayList<AccessPoint> readings;
 
     public ReferencePoint(String id, String name, String description, double x, double y, ArrayList<AccessPoint> readings) {
