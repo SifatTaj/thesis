@@ -11,10 +11,10 @@ public class NdnConsumer {
 
         try {
             Face face = new Face();
-            ReceiveLocation receiveFile = new ReceiveLocation();
-            Name name = new Name("/sendtestdata");
-            face.expressInterest(name, receiveFile, receiveFile);
-            while (receiveFile.callbackCount < 1) {
+            ReceiveLocation receiveLocation = new ReceiveLocation();
+            Name name = new Name("/findlocation/-91_-67_-75_-33");
+            face.expressInterest(name, receiveLocation, receiveLocation);
+            while (receiveLocation.callbackCount < 1) {
                 face.processEvents();
                 Thread.sleep(5);
             }
@@ -28,7 +28,6 @@ public class NdnConsumer {
 
 class ReceiveLocation implements OnData, OnTimeout {
     public int callbackCount = 0;
-    public byte[] bytes;
 
     @Override
     public void onData(Interest interest, Data data) {

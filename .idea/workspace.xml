@@ -2,17 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db354a14-0d5b-4eb2-9e9c-c8056ac3a91a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/client/NdnConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/core/NdnProducer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/util/RsaKeyGen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/util/Convert.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Thesis.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Thesis.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/client/TCPClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/client/TCPClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread$DiscoveryThreadHolder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread$DiscoveryThreadHolder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/TCPServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/TCPServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/client/NdnConsumer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/client/NdnConsumer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/client/ReceiveLocation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/client/ReceiveLocation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/NdnProducer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/NdnProducer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/SendLocation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/SendLocation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/NdnConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/NdnConsumer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/TcpClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/TcpClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/NdnProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/NdnProducer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/TcpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/TcpServer.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,6 +38,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">

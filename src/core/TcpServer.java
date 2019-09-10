@@ -2,26 +2,13 @@ package core;
 
 import model.LocationWithNearbyPlaces;
 import model.ReferencePoint;
+import util.Convert;
 
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 
 public class TcpServer {
-    private static ArrayList<Float> toList(String string) {
-        String[] array = string.split(" ");
-        ArrayList<Float> list = new ArrayList<Float>();
-
-        try {
-            for (String s : array) {
-                list.add(Float.valueOf(s.trim()).floatValue());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return list;
-    }
 
     public static void run(ArrayList<ReferencePoint> referencePoints) {
 //        Thread discoveryThread = new Thread(DiscoveryThread.getInstance());
@@ -37,7 +24,7 @@ public class TcpServer {
 
                 try {
                     String observedRSSValues = dis.readUTF();
-                    ArrayList<Float> observedRSSList = toList(observedRSSValues);
+                    ArrayList<Float> observedRSSList = Convert.toList(observedRSSValues);
                     LocationWithNearbyPlaces location = Algorithms.KNN_WKNN_Algorithm(referencePoints, observedRSSList, "4", true);
                     dos.writeUTF(location.getLocation());
                     dos.flush();

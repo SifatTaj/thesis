@@ -1,10 +1,12 @@
 package core;
 
+import model.LocationWithNearbyPlaces;
 import model.ReferencePoint;
 import net.named_data.jndn.*;
 import net.named_data.jndn.security.KeyChain;
 import net.named_data.jndn.security.SafeBag;
 import net.named_data.jndn.util.Blob;
+import util.Convert;
 import util.RsaKeyGen;
 
 import java.util.ArrayList;
@@ -24,12 +26,12 @@ public class NdnProducer {
             );
 
             face.setCommandSigningInfo(keyChain, keyChain.getDefaultCertificateName());
-            Name name = new Name("/sendtestdata");
+            Name name = new Name("/findlocation");
             System.out.println("Register prefix  " + name.toUri());
-            SendLocation sendMeme = new SendLocation(keyChain, "testing");
-            face.registerPrefix(name, sendMeme, sendMeme);
+            SendLocation sendLocation = new SendLocation(keyChain, referencePoints);
+            face.registerPrefix(name, sendLocation, sendLocation);
 
-            while (sendMeme.responseCount < 1) {
+            while (sendLocation.responseCount < 1) {
                 face.processEvents();
                 Thread.sleep(5);
             }
@@ -43,20 +45,23 @@ public class NdnProducer {
 class SendLocation implements OnInterestCallback, OnRegisterFailed {
     private KeyChain keyChain;
     int responseCount = 0;
-    private String location;
+    ArrayList<ReferencePoint> referencePoints;
 
-    public SendLocation(KeyChain keyChain, String location) {
+    public SendLocation(KeyChain keyChain, ArrayList<ReferencePoint> referencePoints) {
         this.keyChain = keyChain;
-        this.location = location;
+        this.referencePoints = referencePoints;
     }
 
     @Override
     public void onInterest(Name name, Interest interest, Face face, long l, InterestFilter interestFilter) {
         ++responseCount;
         Data data = new Data(interest.getName());
+        String[] observedRSSString = interest.getName().toString().split("/");
+        ArrayList<Float> observedRSSValue = Convert.toList(observedRSSString[observedRSSString.length - 1]);
+        LocationWithNearbyPlaces location = Algorithms.KNN_WKNN_Algorithm(referencePoints, observedRSSValue, "4", true);
 
         try {
-            data.setContent(new Blob(location));
+            data.setContent(new Blob(location.getLocation()));
             keyChain.sign(data);
             face.putData(data);
         } catch (Exception e) {
