@@ -9,9 +9,9 @@ public class Algorithms {
     public static LocationWithNearbyPlaces KNN_WKNN_Algorithm(ArrayList<ReferencePoint> recordedRSSValue, ArrayList<Float> observedRSSValues, int k, boolean isWeighted) {
 
         ArrayList<AccessPoint> rssValues;
-        float curResult = 0;
+        float curResult;
         ArrayList<LocDistance> locDistanceResultsList = new ArrayList<>();
-        String myLocation = null;
+        String myLocation;
 
         // Construct a list with locations-distances pairs for currently
         // observed RSS values
