@@ -25,7 +25,7 @@ public class TcpServer {
                 try {
                     String observedRSSValues = dis.readUTF();
                     ArrayList<Float> observedRSSList = Convert.toList(observedRSSValues);
-                    LocationWithNearbyPlaces location = Algorithms.KNN_WKNN_Algorithm(referencePoints, observedRSSList, "4", true);
+                    LocationWithNearbyPlaces location = Algorithms.KNN_WKNN_Algorithm(referencePoints, observedRSSList, 4, true);
                     dos.writeUTF(location.getLocation());
                     dos.flush();
                 } catch (Exception e) {

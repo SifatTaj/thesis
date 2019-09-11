@@ -9,7 +9,7 @@ public class Convert {
 
         try {
             for (String s : array) {
-                list.add(Float.valueOf(s.trim()).floatValue());
+                list.add(Float.parseFloat(s.trim()));
             }
         } catch (Exception e) {
             e.printStackTrace();

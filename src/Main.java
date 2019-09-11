@@ -21,8 +21,8 @@ public class Main {
 
         ArrayList<ReferencePoint> referencePoints = MongoDBHelper.populateFingerprintDataSet(apCollection, rpCollection);
 
-//        TcpServer.run(referencePoints);
-        NdnProducer.run(referencePoints);
+        TcpServer.run(referencePoints);
+//        NdnProducer.run(referencePoints);
     }
 }
 

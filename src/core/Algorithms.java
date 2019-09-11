@@ -3,23 +3,15 @@ package core;
 import model.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 public class Algorithms {
-    public static LocationWithNearbyPlaces KNN_WKNN_Algorithm(ArrayList<ReferencePoint> recordedRSSValue, ArrayList<Float> observedRSSValues, String parameter, boolean isWeighted) {
+    public static LocationWithNearbyPlaces KNN_WKNN_Algorithm(ArrayList<ReferencePoint> recordedRSSValue, ArrayList<Float> observedRSSValues, int k, boolean isWeighted) {
 
         ArrayList<AccessPoint> rssValues;
         float curResult = 0;
         ArrayList<LocDistance> locDistanceResultsList = new ArrayList<>();
         String myLocation = null;
-        int K;
-
-        try {
-            K = Integer.parseInt(parameter);
-        } catch (Exception e) {
-            return null;
-        }
 
         // Construct a list with locations-distances pairs for currently
         // observed RSS values
@@ -34,19 +26,19 @@ public class Algorithms {
         }
 
         // Sort locations-distances pairs based on minimum distances
-        Collections.sort(locDistanceResultsList, new Comparator<LocDistance>() {
+        locDistanceResultsList.sort(new Comparator<LocDistance>() {
             public int compare(LocDistance gd1, LocDistance gd2) {
-                return (gd1.getDistance() > gd2.getDistance() ? 1 : (gd1.getDistance() == gd2.getDistance() ? 0 : -1));
+                return (Double.compare(gd1.getDistance(), gd2.getDistance()));
             }
         });
 
         if (!isWeighted) {
-            myLocation = calculateAverageKDistanceLocations(locDistanceResultsList, K);
+            myLocation = calculateAverageKDistanceLocations(locDistanceResultsList, k);
         } else {
-            myLocation = calculateWeightedAverageKDistanceLocations(locDistanceResultsList, K);
+            myLocation = calculateWeightedAverageKDistanceLocations(locDistanceResultsList, k);
         }
-        LocationWithNearbyPlaces places = new LocationWithNearbyPlaces(myLocation, locDistanceResultsList);
-        return places;
+
+        return new LocationWithNearbyPlaces(myLocation, locDistanceResultsList);
 
     }
 
@@ -60,7 +52,6 @@ public class Algorithms {
         for (int i = 0; i < l1.size(); ++i) {
 
             try {
-                l1.get(i).getMeanRss();
                 v1 = (float) l1.get(i).getMeanRss();
                 v2 = l2.get(i);
             } catch (Exception e) {
@@ -78,15 +69,15 @@ public class Algorithms {
     }
 
     private static String calculateWeightedAverageKDistanceLocations(ArrayList<LocDistance> LocDistance_Results_List, int K) {
-        double LocationWeight = 0.0f;
+        double LocationWeight;
         double sumWeights = 0.0f;
         double WeightedSumX = 0.0f;
         double WeightedSumY = 0.0f;
 
-        String[] LocationArray = new String[2];
+        String[] LocationArray;
         float x, y;
 
-        int K_Min = K < LocDistance_Results_List.size() ? K : LocDistance_Results_List.size();
+        int K_Min = Math.min(K, LocDistance_Results_List.size());
 
         // Calculate the weighted sum of X and Y
         for (int i = 0; i < K_Min; ++i) {
@@ -98,8 +89,8 @@ public class Algorithms {
             LocationArray = LocDistance_Results_List.get(i).getLocation().split(" ");
 
             try {
-                x = Float.valueOf(LocationArray[0].trim()).floatValue();
-                y = Float.valueOf(LocationArray[1].trim()).floatValue();
+                x = Float.parseFloat(LocationArray[0].trim());
+                y = Float.parseFloat(LocationArray[1].trim());
             } catch (Exception e) {
                 return null;
             }
@@ -113,25 +104,25 @@ public class Algorithms {
         WeightedSumX /= sumWeights;
         WeightedSumY /= sumWeights;
 
-        return WeightedSumX + " " + WeightedSumY;
+        return (int) WeightedSumX + " " + (int) WeightedSumY;
     }
 
     private static String calculateAverageKDistanceLocations(ArrayList<LocDistance> LocDistance_Results_List, int K) {
         float sumX = 0.0f;
         float sumY = 0.0f;
 
-        String[] LocationArray = new String[2];
+        String[] LocationArray;
         float x, y;
 
-        int K_Min = K < LocDistance_Results_List.size() ? K : LocDistance_Results_List.size();
+        int K_Min = Math.min(K, LocDistance_Results_List.size());
 
         // Calculate the sum of X and Y
         for (int i = 0; i < K_Min; ++i) {
             LocationArray = LocDistance_Results_List.get(i).getLocation().split(" ");
 
             try {
-                x = Float.valueOf(LocationArray[0].trim()).floatValue();
-                y = Float.valueOf(LocationArray[1].trim()).floatValue();
+                x = Float.parseFloat(LocationArray[0].trim());
+                y = Float.parseFloat(LocationArray[1].trim());
             } catch (Exception e) {
                 return null;
             }
