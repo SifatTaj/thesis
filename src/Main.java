@@ -12,17 +12,11 @@ public class Main {
     public static void main(String[] args) {
         String uri = "mongodb+srv://admin:admin@thesis-a6lvz.mongodb.net/test?retryWrites=true&w=majority";
         String databaseName = "rssi_fingerprints";
-        String apCollectionName = "sample_accesspoints";
-        String rpCollectionName = "sample_referencepoints";
-
+//
         MongoDatabase fingerprintDatabase = MongoDBHelper.connectMongoDB(uri, databaseName);
-        MongoCollection apCollection = MongoDBHelper.fetchCollection(fingerprintDatabase, apCollectionName);
-        MongoCollection rpCollection = MongoDBHelper.fetchCollection(fingerprintDatabase, rpCollectionName);
 
-        ArrayList<ReferencePoint> referencePoints = MongoDBHelper.populateFingerprintDataSet(apCollection, rpCollection);
-
-        TcpServer.run(referencePoints);
-//        NdnProducer.run(referencePoints);
+//        TcpServer.run();
+        NdnProducer.run(fingerprintDatabase);
     }
 }
 

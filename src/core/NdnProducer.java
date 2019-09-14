@@ -1,5 +1,7 @@
 package core;
 
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import model.LocationWithNearbyPlaces;
 import model.ReferencePoint;
 import net.named_data.jndn.*;
@@ -7,13 +9,23 @@ import net.named_data.jndn.security.KeyChain;
 import net.named_data.jndn.security.SafeBag;
 import net.named_data.jndn.util.Blob;
 import util.Convert;
+import util.MongoDBHelper;
 import util.RsaKeyGen;
 
 import java.util.ArrayList;
 
 public class NdnProducer {
 
-    public static void run(ArrayList<ReferencePoint> referencePoints) {
+    static String apCollectionName = "3rd_floor_aps";
+    static String rpCollectionName = "3rd_floor_rps";
+
+    public static void run(MongoDatabase database) {
+
+        MongoCollection apCollection = MongoDBHelper.fetchCollection(database, apCollectionName);
+        MongoCollection rpCollection = MongoDBHelper.fetchCollection(database, rpCollectionName);
+
+        ArrayList<ReferencePoint> referencePoints = MongoDBHelper.populateFingerprintDataSet(apCollection, rpCollection);
+
         try {
             Face face = new Face();
 
@@ -31,9 +43,9 @@ public class NdnProducer {
             SendLocation sendLocation = new SendLocation(keyChain, referencePoints);
             face.registerPrefix(name, sendLocation, sendLocation);
 
-            while (sendLocation.responseCount < 1) {
+            while (true) {
                 face.processEvents();
-                Thread.sleep(5);
+//                Thread.sleep(5);
             }
 
         } catch (Exception e) {
@@ -64,6 +76,7 @@ class SendLocation implements OnInterestCallback, OnRegisterFailed {
             data.setContent(new Blob(location.getLocation()));
             keyChain.sign(data);
             face.putData(data);
+            System.out.println("New Location sent at " + System.currentTimeMillis());
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,8 +1,11 @@
 package core;
 
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import model.LocationWithNearbyPlaces;
 import model.ReferencePoint;
 import util.Convert;
+import util.MongoDBHelper;
 
 import java.io.*;
 import java.net.*;
@@ -10,7 +13,22 @@ import java.util.ArrayList;
 
 public class TcpServer {
 
-    public static void run(ArrayList<ReferencePoint> referencePoints) {
+    static String apCollectionName = "3rd_floor_aps";
+    static String rpCollectionName = "3rd_floor_rps";
+
+    public static void run() {
+
+        String uri = "mongodb+srv://admin:admin@thesis-a6lvz.mongodb.net/test?retryWrites=true&w=majority";
+        String databaseName = "rssi_fingerprints";
+
+        MongoDatabase database = MongoDBHelper.connectMongoDB(uri, databaseName);
+
+        MongoCollection apCollection = MongoDBHelper.fetchCollection(database, apCollectionName);
+        MongoCollection rpCollection = MongoDBHelper.fetchCollection(database, rpCollectionName);
+
+        ArrayList<ReferencePoint> referencePoints = MongoDBHelper.populateFingerprintDataSet(apCollection, rpCollection);
+
+
 //        Thread discoveryThread = new Thread(DiscoveryThread.getInstance());
 //        discoveryThread.start();
         try {
@@ -28,6 +46,7 @@ public class TcpServer {
                     LocationWithNearbyPlaces location = Algorithms.KNN_WKNN_Algorithm(referencePoints, observedRSSList, 4, true);
                     dos.writeUTF(location.getLocation());
                     dos.flush();
+                    System.out.println("Location sent");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -32,6 +32,6 @@ public class TcpClient {
     }
 
     public static void main(String[] args) {
-        requestLocation("-91_-67_-75_-33");
+        requestLocation("-35_-60_-56_-56_");
     }
 }

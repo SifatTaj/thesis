@@ -104,7 +104,7 @@ public class Algorithms {
         WeightedSumX /= sumWeights;
         WeightedSumY /= sumWeights;
 
-        return (int) WeightedSumX + " " + (int) WeightedSumY;
+        return WeightedSumX + " " + WeightedSumY;
     }
 
     private static String calculateAverageKDistanceLocations(ArrayList<LocDistance> LocDistance_Results_List, int K) {

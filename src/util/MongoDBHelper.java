@@ -12,9 +12,6 @@ import org.bson.Document;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Sifat Taj
- */
 public class MongoDBHelper {
 
     public static MongoDatabase connectMongoDB(String uri, String databaseName) {
