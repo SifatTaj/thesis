@@ -10,13 +10,14 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-        String uri = "mongodb+srv://admin:admin@thesis-a6lvz.mongodb.net/test?retryWrites=true&w=majority";
+//        String uri = "mongodb+srv://admin:admin@thesis-a6lvz.mongodb.net/test?retryWrites=true&w=majority";
+        String uri = "mongodb://localhost:27017";
         String databaseName = "rssi_fingerprints";
 //
         MongoDatabase fingerprintDatabase = MongoDBHelper.connectMongoDB(uri, databaseName);
 
-//        TcpServer.run();
-        NdnProducer.run(fingerprintDatabase);
+        TcpServer.run();
+//        NdnProducer.run(fingerprintDatabase);
     }
 }
 
