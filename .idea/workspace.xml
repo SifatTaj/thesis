@@ -3,8 +3,24 @@
   <component name="ChangeListManager">
     <list default="true" id="db354a14-0d5b-4eb2-9e9c-c8056ac3a91a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/WiredTiger.turtle" beforeDir="false" afterPath="$PROJECT_DIR$/database/WiredTiger.turtle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/WiredTiger.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/WiredTiger.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/_mdb_catalog.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/_mdb_catalog.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/collection-2-3599149940074831622.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/collection-2-3599149940074831622.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/collection-4-3599149940074831622.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/collection-4-3599149940074831622.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/diagnostic.data/metrics.interim" beforeDir="false" afterPath="$PROJECT_DIR$/database/diagnostic.data/metrics.interim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/index-3-3599149940074831622.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/index-3-3599149940074831622.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/index-5-3599149940074831622.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/index-5-3599149940074831622.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/index-6-3599149940074831622.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/index-6-3599149940074831622.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/journal/WiredTigerLog.0000000001" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/mongod.lock" beforeDir="false" afterPath="$PROJECT_DIR$/database/mongod.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/sizeStorer.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/sizeStorer.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/META-INF/Thesis.kotlin_module" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Thesis/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread$DiscoveryThreadHolder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread$DiscoveryThreadHolder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/TcpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/TcpServer.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -50,7 +66,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.TcpClient">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="client.Client" />
       <module name="Thesis" />

@@ -38,8 +38,8 @@ public class MongoDBHelper {
                         apDocument.getString("description"),
                         apDocument.getString("ssid"),
                         apDocument.getString("mac_address"),
-                        apDocument.getDouble("x"),
-                        apDocument.getDouble("y"),
+                        apDocument.getInteger("x"),
+                        apDocument.getInteger("y"),
                         Double.parseDouble("" + readings.get(i))
                 ));
                 ++i;
@@ -62,8 +62,8 @@ public class MongoDBHelper {
                         rpDocument.get("_id").toString(),
                         rpDocument.getString("name"),
                         rpDocument.getString("description"),
-                        rpDocument.getDouble("x"),
-                        rpDocument.getDouble("y"),
+                        rpDocument.getInteger("x"),
+                        rpDocument.getInteger("y"),
                         addAccessPoints(ap, (List<Document>) rpDocument.get("readings"))
                 ));
             }

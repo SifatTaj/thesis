@@ -13,22 +13,10 @@ import java.util.ArrayList;
 
 public class TcpServer {
 
-    static String apCollectionName = "3rd_floor_aps";
-    static String rpCollectionName = "3rd_floor_rps";
+    static String apCollectionName = "home_ap";
+    static String rpCollectionName = "home_rp";
 
-    public static void run() {
-
-        String uri = "mongodb+srv://admin:admin@thesis-a6lvz.mongodb.net/test?retryWrites=true&w=majority";
-        String databaseName = "rssi_fingerprints";
-
-        MongoDatabase database = MongoDBHelper.connectMongoDB(uri, databaseName);
-
-        MongoCollection apCollection = MongoDBHelper.fetchCollection(database, apCollectionName);
-        MongoCollection rpCollection = MongoDBHelper.fetchCollection(database, rpCollectionName);
-
-        ArrayList<ReferencePoint> referencePoints = MongoDBHelper.populateFingerprintDataSet(apCollection, rpCollection);
-
-
+    public static void run(MongoDatabase database) {
 //        Thread discoveryThread = new Thread(DiscoveryThread.getInstance());
 //        discoveryThread.start();
         try {
@@ -43,6 +31,9 @@ public class TcpServer {
                 try {
                     String observedRSSValues = dis.readUTF();
                     ArrayList<Float> observedRSSList = Convert.toList(observedRSSValues);
+                    MongoCollection apCollection = MongoDBHelper.fetchCollection(database, apCollectionName);
+                    MongoCollection rpCollection = MongoDBHelper.fetchCollection(database, rpCollectionName);
+                    ArrayList<ReferencePoint> referencePoints = MongoDBHelper.populateFingerprintDataSet(apCollection, rpCollection);
                     LocationWithNearbyPlaces location = Algorithms.KNN_WKNN_Algorithm(referencePoints, observedRSSList, 4, true);
                     dos.writeUTF(location.getLocation());
                     dos.flush();

@@ -12,11 +12,11 @@ public class Main {
     public static void main(String[] args) {
 //        String uri = "mongodb+srv://admin:admin@thesis-a6lvz.mongodb.net/test?retryWrites=true&w=majority";
         String uri = "mongodb://localhost:27017";
-        String databaseName = "rssi_fingerprints";
+        String databaseName = "home_rssi";
 //
         MongoDatabase fingerprintDatabase = MongoDBHelper.connectMongoDB(uri, databaseName);
 
-        TcpServer.run();
+        TcpServer.run(fingerprintDatabase);
 //        NdnProducer.run(fingerprintDatabase);
     }
 }
