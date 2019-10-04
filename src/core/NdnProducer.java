@@ -70,7 +70,7 @@ class SendLocation implements OnInterestCallback, OnRegisterFailed {
         Data data = new Data(interest.getName());
         String[] observedRSSString = interest.getName().toString().split("/");
         ArrayList<Float> observedRSSValue = Convert.toList(observedRSSString[observedRSSString.length - 1]);
-        LocationWithNearbyPlaces location = Algorithms.KNN_WKNN_Algorithm(referencePoints, observedRSSValue, 4, true);
+        LocationWithNearbyPlaces location = KNN.KNN_WKNN_Algorithm(referencePoints, observedRSSValue, 4, true);
 
         try {
             data.setContent(new Blob(location.getLocation()));

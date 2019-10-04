@@ -1,123 +1,221 @@
 package core;
 
-import java.util.ArrayList;
-import java.util.List;
+import model.Node;
 
-class Node {
-    Node parent;
-    int[] position;
-    double g;
-    double h;
-    double f;
+import java.util.*;
 
-    public Node(Node parent, int[] position) {
-        this.parent = parent;
-        this.position = position;
-    }
-}
-
+/**
+ * A Star Algorithm
+ *
+ * @author Marcelo Surriabre
+ * @version 2.1, 2017-02-23
+ */
 public class AStar {
-    public static List<int[]> findPath(int[][] maze, int[] start, int[] end) {
-        Node startNode = new Node(null, start);
-        startNode.g = startNode.h = startNode.f = 0;
-        Node endNode = new Node(null, end);
-        endNode.g = endNode.h = endNode.f = 0;
+    private static int DEFAULT_HV_COST = 10; // Horizontal - Vertical Cost
+    private static int DEFAULT_DIAGONAL_COST = 14;
+    private int hvCost;
+    private int diagonalCost;
+    private Node[][] searchArea;
+    private PriorityQueue<Node> openList;
+    private Set<Node> closedSet;
+    private Node initialNode;
+    private Node finalNode;
 
-        List<Node> openNodes = new ArrayList<>();
-        List<Node> closedNodes = new ArrayList<>();
-
-        openNodes.add(startNode);
-
-        while (!openNodes.isEmpty()) {
-            Node currentNode = openNodes.get(0);
-            int currentIndex = 0;
-
-            for(int i = 0 ; i < openNodes.size() ; ++i) {
-                if (openNodes.get(i).f < currentNode.f) {
-                    currentNode = openNodes.get(i);
-                    currentIndex = i;
-                }
+    public AStar(int rows, int cols, Node initialNode, Node finalNode, int hvCost, int diagonalCost) {
+        this.hvCost = hvCost;
+        this.diagonalCost = diagonalCost;
+        setInitialNode(initialNode);
+        setFinalNode(finalNode);
+        this.searchArea = new Node[rows][cols];
+        this.openList = new PriorityQueue<Node>(new Comparator<Node>() {
+            @Override
+            public int compare(Node node0, Node node1) {
+                return Integer.compare(node0.getF(), node1.getF());
             }
-
-            openNodes.remove(currentIndex);
-            closedNodes.add(currentNode);
-
-            if (currentNode.position[0] == endNode.position[0] & currentNode.position[1] == endNode.position[1]) {
-                List<int[]> path = new ArrayList<>();
-                Node current = currentNode;
-                while (current != null) {
-                    path.add(current.position);
-                    current = current.parent;
-                }
-                return path;
-            }
-
-            List<Node> children = new ArrayList<>();
-            List<int[]> adjacentSquare = new ArrayList<>();
-            adjacentSquare.add(new int[]{0, -1});
-            adjacentSquare.add(new int[]{0, 1});
-            adjacentSquare.add(new int[]{-1, 0});
-            adjacentSquare.add(new int[]{1, 0});
-            adjacentSquare.add(new int[]{-1, -1});
-            adjacentSquare.add(new int[]{-1, 1});
-            adjacentSquare.add(new int[]{1, -1});
-            adjacentSquare.add(new int[]{1, 1});
-
-            for(int[] newPos : adjacentSquare) {
-                int x = currentNode.position[0] + newPos[0];
-                int y = currentNode.position[1] + newPos[1];
-                int[] nodePos = {x, y};
-
-                if(nodePos[0] > maze.length - 1 | nodePos[0] < 0 | nodePos[1] > maze[0].length | nodePos[1] < 0)
-                    continue;
-                if (maze[nodePos[0]][nodePos[1]] != 0)
-                    continue;
-
-                children.add(new Node(currentNode, nodePos));
-            }
-
-            for(Node child : children) {
-                for (Node closedChild : closedNodes) {
-                    if (child.equals(closedChild))
-                        continue;
-                }
-
-                child.g = currentNode.g + 1;
-                child.h = Math.pow((child.position[0] - endNode.position[0]), 2) + Math.pow((child.position[1] - endNode.position[1]), 2);
-                child.f = child.g + child.h;
-
-                for(Node openNode : openNodes) {
-                    if (child.equals(openNode) & child.g > openNode.g)
-                        continue;
-                }
-
-                openNodes.add(child);
-
-            }
-
-        }
-        return null;
+        });
+        setNodes();
+        this.closedSet = new HashSet<>();
     }
 
-    public static void main(String[] args) {
-        int[][] maze = {{0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-                        {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-                        {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-                        {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-                        {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-                        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                        {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-                        {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-                        {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-                        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+    public AStar(int rows, int cols, Node initialNode, Node finalNode) {
+        this(rows, cols, initialNode, finalNode, DEFAULT_HV_COST, DEFAULT_DIAGONAL_COST);
+    }
 
-        int[] start = {0, 0};
-        int[] end = {7, 6};
-
-        List<int[]> path = findPath(maze, start, end);
-
-        for (int[] pos : path) {
-            System.out.println(pos[0] + "," + pos[1]);
+    private void setNodes() {
+        for (int i = 0; i < searchArea.length; i++) {
+            for (int j = 0; j < searchArea[0].length; j++) {
+                Node node = new Node(i, j);
+                node.calculateHeuristic(getFinalNode());
+                this.searchArea[i][j] = node;
+            }
         }
+    }
+
+    public void setBlocks(int[][] blocksArray) {
+        for (int i = 0; i < blocksArray.length; i++) {
+            int row = blocksArray[i][0];
+            int col = blocksArray[i][1];
+            setBlock(row, col);
+        }
+    }
+
+    public List<Node> findPath() {
+        openList.add(initialNode);
+        while (!isEmpty(openList)) {
+            Node currentNode = openList.poll();
+            closedSet.add(currentNode);
+            if (isFinalNode(currentNode)) {
+                return getPath(currentNode);
+            } else {
+                addAdjacentNodes(currentNode);
+            }
+        }
+        return new ArrayList<Node>();
+    }
+
+    private List<Node> getPath(Node currentNode) {
+        List<Node> path = new ArrayList<Node>();
+        path.add(currentNode);
+        Node parent;
+        while ((parent = currentNode.getParent()) != null) {
+            path.add(0, parent);
+            currentNode = parent;
+        }
+        return path;
+    }
+
+    private void addAdjacentNodes(Node currentNode) {
+        addAdjacentUpperRow(currentNode);
+        addAdjacentMiddleRow(currentNode);
+        addAdjacentLowerRow(currentNode);
+    }
+
+    private void addAdjacentLowerRow(Node currentNode) {
+        int row = currentNode.getY();
+        int col = currentNode.getX();
+        int lowerRow = row + 1;
+        if (lowerRow < getSearchArea().length) {
+            if (col - 1 >= 0) {
+                checkNode(currentNode, col - 1, lowerRow, getDiagonalCost()); // Comment this line if diagonal movements are not allowed
+            }
+            if (col + 1 < getSearchArea()[0].length) {
+                checkNode(currentNode, col + 1, lowerRow, getDiagonalCost()); // Comment this line if diagonal movements are not allowed
+            }
+            checkNode(currentNode, col, lowerRow, getHvCost());
+        }
+    }
+
+    private void addAdjacentMiddleRow(Node currentNode) {
+        int row = currentNode.getY();
+        int col = currentNode.getX();
+        int middleRow = row;
+        if (col - 1 >= 0) {
+            checkNode(currentNode, col - 1, middleRow, getHvCost());
+        }
+        if (col + 1 < getSearchArea()[0].length) {
+            checkNode(currentNode, col + 1, middleRow, getHvCost());
+        }
+    }
+
+    private void addAdjacentUpperRow(Node currentNode) {
+        int row = currentNode.getY();
+        int col = currentNode.getX();
+        int upperRow = row - 1;
+        if (upperRow >= 0) {
+            if (col - 1 >= 0) {
+                checkNode(currentNode, col - 1, upperRow, getDiagonalCost()); // Comment this if diagonal movements are not allowed
+            }
+            if (col + 1 < getSearchArea()[0].length) {
+                checkNode(currentNode, col + 1, upperRow, getDiagonalCost()); // Comment this if diagonal movements are not allowed
+            }
+            checkNode(currentNode, col, upperRow, getHvCost());
+        }
+    }
+
+    private void checkNode(Node currentNode, int col, int row, int cost) {
+        Node adjacentNode = getSearchArea()[row][col];
+        if (!adjacentNode.isBlock() && !getClosedSet().contains(adjacentNode)) {
+            if (!getOpenList().contains(adjacentNode)) {
+                adjacentNode.setNodeData(currentNode, cost);
+                getOpenList().add(adjacentNode);
+            } else {
+                boolean changed = adjacentNode.checkBetterPath(currentNode, cost);
+                if (changed) {
+                    // Remove and Add the changed node, so that the PriorityQueue can sort again its
+                    // contents with the modified "finalCost" value of the modified node
+                    getOpenList().remove(adjacentNode);
+                    getOpenList().add(adjacentNode);
+                }
+            }
+        }
+    }
+
+    private boolean isFinalNode(Node currentNode) {
+        return currentNode.equals(finalNode);
+    }
+
+    private boolean isEmpty(PriorityQueue<Node> openList) {
+        return openList.size() == 0;
+    }
+
+    private void setBlock(int row, int col) {
+        this.searchArea[row][col].setBlock(true);
+    }
+
+    public Node getInitialNode() {
+        return initialNode;
+    }
+
+    public void setInitialNode(Node initialNode) {
+        this.initialNode = initialNode;
+    }
+
+    public Node getFinalNode() {
+        return finalNode;
+    }
+
+    public void setFinalNode(Node finalNode) {
+        this.finalNode = finalNode;
+    }
+
+    public Node[][] getSearchArea() {
+        return searchArea;
+    }
+
+    public void setSearchArea(Node[][] searchArea) {
+        this.searchArea = searchArea;
+    }
+
+    public PriorityQueue<Node> getOpenList() {
+        return openList;
+    }
+
+    public void setOpenList(PriorityQueue<Node> openList) {
+        this.openList = openList;
+    }
+
+    public Set<Node> getClosedSet() {
+        return closedSet;
+    }
+
+    public void setClosedSet(Set<Node> closedSet) {
+        this.closedSet = closedSet;
+    }
+
+    public int getHvCost() {
+        return hvCost;
+    }
+
+    public void setHvCost(int hvCost) {
+        this.hvCost = hvCost;
+    }
+
+    private int getDiagonalCost() {
+        return diagonalCost;
+    }
+
+    private void setDiagonalCost(int diagonalCost) {
+        this.diagonalCost = diagonalCost;
     }
 }
+

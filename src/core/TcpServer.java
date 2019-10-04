@@ -34,7 +34,7 @@ public class TcpServer {
                     MongoCollection apCollection = MongoDBHelper.fetchCollection(database, apCollectionName);
                     MongoCollection rpCollection = MongoDBHelper.fetchCollection(database, rpCollectionName);
                     ArrayList<ReferencePoint> referencePoints = MongoDBHelper.populateFingerprintDataSet(apCollection, rpCollection);
-                    LocationWithNearbyPlaces location = Algorithms.KNN_WKNN_Algorithm(referencePoints, observedRSSList, 4, true);
+                    LocationWithNearbyPlaces location = KNN.KNN_WKNN_Algorithm(referencePoints, observedRSSList, 4, true);
                     dos.writeUTF(location.getLocation());
                     dos.flush();
                     System.out.println("Location sent");
