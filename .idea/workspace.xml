@@ -2,25 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db354a14-0d5b-4eb2-9e9c-c8056ac3a91a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/core/AStar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/WiredTiger.turtle" beforeDir="false" afterPath="$PROJECT_DIR$/database/WiredTiger.turtle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/WiredTiger.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/WiredTiger.wt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/_mdb_catalog.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/_mdb_catalog.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/collection-2-3493237249066274525.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/collection-2-3493237249066274525.wt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/collection-2-3599149940074831622.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/collection-2-3599149940074831622.wt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/collection-4-3599149940074831622.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/collection-4-3599149940074831622.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/diagnostic.data/metrics.2019-10-02T16-47-37Z-00000" beforeDir="false" afterPath="$PROJECT_DIR$/database/diagnostic.data/metrics.2019-10-02T16-47-37Z-00000" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/diagnostic.data/metrics.interim" beforeDir="false" afterPath="$PROJECT_DIR$/database/diagnostic.data/metrics.interim" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/index-3-3599149940074831622.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/index-3-3599149940074831622.wt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/index-5-3599149940074831622.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/index-5-3599149940074831622.wt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/index-6-3599149940074831622.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/index-6-3599149940074831622.wt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/journal/WiredTigerLog.0000000001" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/journal/WiredTigerLog.0000000002" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/database/mongod.lock" beforeDir="false" afterPath="$PROJECT_DIR$/database/mongod.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/sizeStorer.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/sizeStorer.wt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/META-INF/Thesis.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread$DiscoveryThreadHolder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread$DiscoveryThreadHolder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/TcpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/TcpServer.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -66,7 +62,20 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.TcpClient">
+  <component name="RunManager" selected="Application.AStar">
+    <configuration name="AStar" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="core.AStar" />
+      <module name="Thesis" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="core.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="client.Client" />
       <module name="Thesis" />
@@ -128,6 +137,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.AStar" />
         <item itemvalue="Application.TcpClient" />
         <item itemvalue="Application.NdnConsumer" />
         <item itemvalue="Application.Server" />
@@ -160,5 +170,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/core/AStar.java</url>
+          <line>119</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
