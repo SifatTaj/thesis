@@ -2,16 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db354a14-0d5b-4eb2-9e9c-c8056ac3a91a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/client/AStarTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/Node.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/diagnostic.data/metrics.2019-10-03T21-15-18Z-00000" beforeDir="false" afterPath="$PROJECT_DIR$/database/diagnostic.data/metrics.2019-10-03T21-15-18Z-00000" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/diagnostic.data/metrics.interim" beforeDir="false" afterPath="$PROJECT_DIR$/database/diagnostic.data/metrics.interim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/AStar.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/AStar.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/client/AStarTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/client/AStarTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/model/Node.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/model/Node.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/AStarTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/AStarTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/AStar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/AStar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/Algorithms.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/KNN.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/NdnProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/NdnProducer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/TcpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/TcpServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Node.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

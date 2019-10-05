@@ -1,5 +1,7 @@
 package model;
 
+import core.AStar;
+
 public class Node {
 
     private int g;
@@ -49,7 +51,7 @@ public class Node {
 
     @Override
     public String toString() {
-        return "Node [x=" + x + ", y=" + Math.abs(y - 5) + "]";
+        return "Node [x=" + x + ", y=" + Math.abs(y - AStar.yTranslateBy) + "]";
     }
 
     public int getH() {

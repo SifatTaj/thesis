@@ -13,6 +13,7 @@ import java.util.*;
 public class AStar {
     private static int DEFAULT_HV_COST = 10; // Horizontal - Vertical Cost
     private static int DEFAULT_DIAGONAL_COST = 14;
+    public static int yTranslateBy;
     private int hvCost;
     private int diagonalCost;
     private Node[][] searchArea;
@@ -22,6 +23,7 @@ public class AStar {
     private Node finalNode;
 
     public AStar(int rows, int cols, Node initialNode, Node finalNode, int hvCost, int diagonalCost) {
+        this.yTranslateBy = rows - 1;
         this.hvCost = hvCost;
         this.diagonalCost = diagonalCost;
         setInitialNode(initialNode);
