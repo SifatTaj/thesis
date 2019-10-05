@@ -6,6 +6,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import model.AccessPoint;
+import model.FloorLayout;
 import model.ReferencePoint;
 import org.bson.Document;
 
@@ -72,5 +73,26 @@ public class MongoDBHelper {
         }
 
         return referencePoints;
+    }
+
+    public static FloorLayout generateMapLayout(MongoCollection mapCollection) {
+
+        Document doc = (Document) mapCollection.find().first();
+
+        int height = doc.getInteger("height");
+        int width = doc.getInteger("width");
+
+        List coordinateList = (List) doc.get("walls");
+        int[][] walls = new int[coordinateList.size()][2];
+        int index = 0;
+        for (Object coordinates : coordinateList) {
+            List values = (List) coordinates;
+            int x = (Integer) values.get(0);
+            int y = (Integer) values.get(1);
+            walls[index] = new int[]{x, y};
+            ++index;
+        }
+
+        return new FloorLayout(height, width, walls);
     }
 }
