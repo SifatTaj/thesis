@@ -2,6 +2,7 @@ package core;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import model.FloorLayout;
 import model.LocationWithNearbyPlaces;
 import model.ReferencePoint;
 import util.Convert;
@@ -29,15 +30,30 @@ public class TcpServer {
                 DataInputStream dis = new DataInputStream(socket.getInputStream());
 
                 try {
-                    String observedRSSValues = dis.readUTF();
-                    ArrayList<Float> observedRSSList = Convert.toList(observedRSSValues);
-                    MongoCollection apCollection = MongoDBHelper.fetchCollection(database, apCollectionName);
-                    MongoCollection rpCollection = MongoDBHelper.fetchCollection(database, rpCollectionName);
-                    ArrayList<ReferencePoint> referencePoints = MongoDBHelper.populateFingerprintDataSet(apCollection, rpCollection);
-                    LocationWithNearbyPlaces location = KNN.KNN_WKNN_Algorithm(referencePoints, observedRSSList, 4, true);
-                    dos.writeUTF(location.getLocation());
-                    dos.flush();
-                    System.out.println("Location sent");
+                    String utf = dis.readUTF();
+                    System.out.println(utf);
+                    String[] request = utf.split("/");
+                    String service = request[0];
+                    String place = request[1];
+                    if (service.equalsIgnoreCase("location")) {
+                        String observedRSSValues = request[2];
+                        ArrayList<Float> observedRSSList = Convert.toList(observedRSSValues);
+
+                        MongoCollection apCollection = MongoDBHelper.fetchCollection(database, place + "_ap");
+                        MongoCollection rpCollection = MongoDBHelper.fetchCollection(database, place + "_rp");
+
+                        ArrayList<ReferencePoint> referencePoints = MongoDBHelper.populateFingerprintDataSet(apCollection, rpCollection);
+                        LocationWithNearbyPlaces location = KNN.KNN_WKNN_Algorithm(referencePoints, observedRSSList, 4, true);
+                        dos.writeUTF(location.getLocation());
+                        dos.flush();
+                        System.out.println("Location sent");
+                    }
+
+                    if (service.equalsIgnoreCase("loadmap")) {
+                        MongoCollection mapCollection = MongoDBHelper.fetchCollection(database, place + "_map_layout");
+                        FloorLayout floorLayout = MongoDBHelper.generateMapLayout(mapCollection);
+
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
