@@ -14,9 +14,6 @@ import java.util.ArrayList;
 
 public class TcpServer {
 
-    static String apCollectionName = "home_ap";
-    static String rpCollectionName = "home_rp";
-
     public static void run(MongoDatabase database) {
 //        Thread discoveryThread = new Thread(DiscoveryThread.getInstance());
 //        discoveryThread.start();
@@ -26,11 +23,11 @@ public class TcpServer {
             while (true) {
                 System.out.println("Fingerprint server is running");
                 Socket socket = serverSocket.accept();
-                DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
-                DataInputStream dis = new DataInputStream(socket.getInputStream());
+                ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 
                 try {
-                    String utf = dis.readUTF();
+                    String utf = ois.readUTF();
                     System.out.println(utf);
                     String[] request = utf.split("/");
                     String service = request[0];
@@ -44,8 +41,8 @@ public class TcpServer {
 
                         ArrayList<ReferencePoint> referencePoints = MongoDBHelper.populateFingerprintDataSet(apCollection, rpCollection);
                         LocationWithNearbyPlaces location = KNN.KNN_WKNN_Algorithm(referencePoints, observedRSSList, 4, true);
-                        dos.writeUTF(location.getLocation());
-                        dos.flush();
+                        oos.writeUTF(location.getLocation());
+                        oos.flush();
                         System.out.println("Location sent");
                     }
 
