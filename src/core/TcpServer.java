@@ -49,7 +49,8 @@ public class TcpServer {
                     if (service.equalsIgnoreCase("loadmap")) {
                         MongoCollection mapCollection = MongoDBHelper.fetchCollection(database, place + "_map_layout");
                         FloorLayout floorLayout = MongoDBHelper.generateMapLayout(mapCollection);
-
+                        oos.writeObject(floorLayout);
+                        oos.flush();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

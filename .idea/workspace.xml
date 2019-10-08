@@ -7,7 +7,9 @@
       <change beforePath="$PROJECT_DIR$/database/diagnostic.data/metrics.interim" beforeDir="false" afterPath="$PROJECT_DIR$/database/diagnostic.data/metrics.interim" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread$DiscoveryThreadHolder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread$DiscoveryThreadHolder.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/model/FloorLayout.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/model/FloorLayout.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/TcpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/TcpServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/FloorLayout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/FloorLayout.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
