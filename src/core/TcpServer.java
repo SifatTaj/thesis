@@ -1,5 +1,6 @@
 package core;
 
+import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import model.FloorLayout;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 
 public class TcpServer {
 
-    public static void run(MongoDatabase database) {
+    public static void run(String uri) {
 //        Thread discoveryThread = new Thread(DiscoveryThread.getInstance());
 //        discoveryThread.start();
         try {
@@ -32,12 +33,17 @@ public class TcpServer {
                     String[] request = utf.split("/");
                     String service = request[0];
                     String place = request[1];
+                    int floor = Integer.parseInt(request[2]);
+
+                    String databaseName = place + "_rssi";
+                    MongoDatabase database = MongoDBHelper.connectMongoDB(uri, databaseName);
+
                     if (service.equalsIgnoreCase("location")) {
-                        String observedRSSValues = request[2];
+                        String observedRSSValues = request[3];
                         ArrayList<Float> observedRSSList = Convert.toList(observedRSSValues);
 
-                        MongoCollection apCollection = MongoDBHelper.fetchCollection(database, place + "_ap");
-                        MongoCollection rpCollection = MongoDBHelper.fetchCollection(database, place + "_rp");
+                        MongoCollection apCollection = MongoDBHelper.fetchCollection(database, place + "_" + floor + "_ap");
+                        MongoCollection rpCollection = MongoDBHelper.fetchCollection(database, place + "_" + floor + "_rp");
 
                         ArrayList<ReferencePoint> referencePoints = MongoDBHelper.populateFingerprintDataSet(apCollection, rpCollection);
                         LocationWithNearbyPlaces location = KNN.KNN_WKNN_Algorithm(referencePoints, observedRSSList, 4, true);
@@ -46,11 +52,28 @@ public class TcpServer {
                         System.out.println("Location sent");
                     }
 
-                    if (service.equalsIgnoreCase("loadmap")) {
+                    else if (service.equalsIgnoreCase("loadmap")) {
                         MongoCollection mapCollection = MongoDBHelper.fetchCollection(database, place + "_map_layout");
-                        FloorLayout floorLayout = MongoDBHelper.generateMapLayout(mapCollection);
+                        FloorLayout floorLayout = MongoDBHelper.generateMapLayout(mapCollection, floor);
                         oos.writeObject(floorLayout);
                         oos.flush();
+                    }
+
+                    else if (service.equalsIgnoreCase("navigate")) {
+                        String[] coordinates = request[3].split("_");
+                        int startx = Integer.parseInt(coordinates[0]);
+                        int starty = Integer.parseInt(coordinates[1]);
+                        int startFloor = Integer.parseInt(coordinates[3]);
+                        int endx = Integer.parseInt(coordinates[3]);
+                        int endy = Integer.parseInt(coordinates[4]);
+                        int endFloor = Integer.parseInt(coordinates[5]);
+
+                        if(startFloor != endFloor) {
+                            endx = 3;
+                            endy = 6;
+                        }
+
+
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

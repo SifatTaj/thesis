@@ -34,6 +34,6 @@ public class AddMapLayout {
 //        doc.put("walls", wallList);
 //        layoutCollection.insertOne(doc);
 
-        FloorLayout floorLayout = MongoDBHelper.generateMapLayout(layoutCollection);
+        FloorLayout floorLayout = MongoDBHelper.generateMapLayout(layoutCollection, 3);
     }
 }

@@ -13,6 +13,8 @@ import org.bson.Document;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mongodb.client.model.Filters.eq;
+
 public class MongoDBHelper {
 
     public static MongoDatabase connectMongoDB(String uri, String databaseName) {
@@ -75,12 +77,14 @@ public class MongoDBHelper {
         return referencePoints;
     }
 
-    public static FloorLayout generateMapLayout(MongoCollection mapCollection) {
+    public static FloorLayout generateMapLayout(MongoCollection mapCollection, int floorQuery) {
 
-        Document doc = (Document) mapCollection.find().first();
+        Document doc = (Document) mapCollection.find(eq("floor", floorQuery)).first();
 
         int height = doc.getInteger("height");
         int width = doc.getInteger("width");
+        String place = doc.getString("place");
+        int floor = doc.getInteger("floor");
 
         List coordinateList = (List) doc.get("walls");
         int[][] walls = new int[coordinateList.size()][2];
@@ -93,6 +97,6 @@ public class MongoDBHelper {
             ++index;
         }
 
-        return new FloorLayout(height, width, walls);
+        return new FloorLayout(place, floor, height, width, walls);
     }
 }

@@ -11,6 +11,22 @@ import java.util.List;
 
 public class AStarTest {
 
+    private final int startx;
+    private final int starty;
+    private final int endx;
+    private final int endy;
+    private final int floor;
+    private final String place;
+
+    public AStarTest(int startx, int starty, int endx, int endy, int floor, String place) {
+        this.startx = startx;
+        this.starty = starty;
+        this.endx = endx;
+        this.endy = endy;
+        this.floor = floor;
+        this.place = place;
+    }
+
     public static int yTranslateBy;
 
     public static Node createNode(int x, int y) {
@@ -26,20 +42,20 @@ public class AStarTest {
         return translatedCoordinates;
     }
 
-    public static void main(String[] args) {
+    public void run() {
 
         String uri = "mongodb://localhost:27017";
-        String databaseName = "home_rssi";
-        String collectionName = "home_map_layout";
+        String databaseName = place + "_rssi";
+        String collectionName = place + "_map_layout";
 
         MongoDatabase fingerprintDatabase = MongoDBHelper.connectMongoDB(uri, databaseName);
         MongoCollection layoutCollection = MongoDBHelper.fetchCollection(fingerprintDatabase, collectionName);
 
-        FloorLayout floorLayout = MongoDBHelper.generateMapLayout(layoutCollection);
+        FloorLayout floorLayout = MongoDBHelper.generateMapLayout(layoutCollection, floor);
         yTranslateBy = floorLayout.getHeight() - 1;
 
-        Node initialNode = createNode(0, 0);
-        Node finalNode = createNode(8,8);
+        Node initialNode = createNode(startx, starty);
+        Node finalNode = createNode(endx,endy);
         AStar aStar = new AStar(floorLayout.getHeight(), floorLayout.getWidth(), initialNode, finalNode, 10, 100);
         int[][] blocksArray = createBlocks(floorLayout.getWalls());
         aStar.setBlocks(blocksArray);
