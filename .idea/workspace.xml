@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db354a14-0d5b-4eb2-9e9c-c8056ac3a91a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/model/Path.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/diagnostic.data/metrics.2019-10-09T14-06-51Z-00000" beforeDir="false" afterPath="$PROJECT_DIR$/database/diagnostic.data/metrics.2019-10-09T14-06-51Z-00000" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/diagnostic.data/metrics.interim" beforeDir="false" afterPath="$PROJECT_DIR$/database/diagnostic.data/metrics.interim" afterDir="false" />
@@ -9,8 +10,12 @@
       <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread$DiscoveryThreadHolder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread$DiscoveryThreadHolder.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/TCPServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/TCPServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/model/FloorLayout.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/model/FloorLayout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/model/Node.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/model/Node.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/AStarTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/AStarTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/TcpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/TcpServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/FloorLayout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/FloorLayout.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Node.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -174,13 +179,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/core/TcpServer.java</url>
-          <line>79</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/core/TcpServer.java</url>
-          <line>41</line>
-          <option name="timeStamp" value="4" />
+          <line>70</line>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

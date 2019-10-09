@@ -60,7 +60,9 @@ public class AStarTest {
         int[][] blocksArray = createBlocks(floorLayout.getWalls());
         aStar.setBlocks(blocksArray);
         List<Node> path = aStar.findPath();
+        
         for (Node node : path) {
+            node.setY(Math.abs(node.getY() - AStar.yTranslateBy));
             System.out.println(node);
         }
         return path;

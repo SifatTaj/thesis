@@ -1,13 +1,10 @@
 package model;
 
-import java.io.Serializable;
-
-public class FloorLayout implements Serializable {
-    private static final long serialVersionUID = 898557456258L;
-    private final String place;
-    private final int floor;
-    private final int height;
-    private final int width;
+public class FloorLayout {
+    private String place;
+    private int floor;
+    private int height;
+    private int width;
 
     public FloorLayout(String place, int floor, int height, int width, int[][] walls) {
         this.place = place;
@@ -18,10 +15,6 @@ public class FloorLayout implements Serializable {
     }
 
     private final int[][] walls;
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
 
     public String getPlace() {
         return place;

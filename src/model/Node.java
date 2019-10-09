@@ -51,7 +51,7 @@ public class Node {
 
     @Override
     public String toString() {
-        return "Node [x=" + x + ", y=" + Math.abs(y - AStar.yTranslateBy) + "]";
+        return "Node [x=" + x + ", y=" + y + "]";
     }
 
     public int getH() {

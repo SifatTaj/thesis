@@ -1,13 +1,11 @@
 package core;
 
 import client.AStarTest;
+import com.google.gson.Gson;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import model.FloorLayout;
-import model.LocationWithNearbyPlaces;
-import model.Node;
-import model.ReferencePoint;
+import model.*;
 import util.Convert;
 import util.MongoDBHelper;
 
@@ -58,7 +56,8 @@ public class TcpServer {
                     else if (service.equalsIgnoreCase("loadmap")) {
                         MongoCollection mapCollection = MongoDBHelper.fetchCollection(database, place + "_map_layout");
                         FloorLayout floorLayout = MongoDBHelper.generateMapLayout(mapCollection, floor);
-                        oos.writeObject(floorLayout);
+                        String json = new Gson().toJson(floorLayout);
+                        oos.writeObject(json);
                         oos.flush();
                     }
 
@@ -66,7 +65,7 @@ public class TcpServer {
                         String[] coordinates = request[3].split("_");
                         int startx = Integer.parseInt(coordinates[0]);
                         int starty = Integer.parseInt(coordinates[1]);
-                        int startFloor = Integer.parseInt(coordinates[3]);
+                        int startFloor = Integer.parseInt(coordinates[2]);
                         int endx = Integer.parseInt(coordinates[3]);
                         int endy = Integer.parseInt(coordinates[4]);
                         int endFloor = Integer.parseInt(coordinates[5]);
@@ -77,8 +76,11 @@ public class TcpServer {
                         }
 
                         AStarTest aStarTest = new AStarTest(startx, starty, endx, endy, floor, place);
-                        List<Node> path = aStarTest.run();
-
+//                        List<Node> path = aStarTest.run();
+                        Path path = new Path(aStarTest.run());
+                        String json = new Gson().toJson(path);
+                        oos.writeObject(json);
+                        oos.flush();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
