@@ -1,10 +1,12 @@
 package core;
 
+import client.AStarTest;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import model.FloorLayout;
 import model.LocationWithNearbyPlaces;
+import model.Node;
 import model.ReferencePoint;
 import util.Convert;
 import util.MongoDBHelper;
@@ -12,6 +14,7 @@ import util.MongoDBHelper;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TcpServer {
 
@@ -73,6 +76,8 @@ public class TcpServer {
                             endy = 6;
                         }
 
+                        AStarTest aStarTest = new AStarTest(startx, starty, endx, endy, floor, place);
+                        List<Node> path = aStarTest.run();
 
                     }
                 } catch (Exception e) {

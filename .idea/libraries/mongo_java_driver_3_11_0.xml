@@ -2,6 +2,7 @@
   <library name="mongo-java-driver-3.11.0">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/lib/mongo-java-driver-3.11.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/gson-2.8.6.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
