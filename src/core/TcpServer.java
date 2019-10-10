@@ -70,14 +70,18 @@ public class TcpServer {
                         int endy = Integer.parseInt(coordinates[4]);
                         int endFloor = Integer.parseInt(coordinates[5]);
 
+                        String collectionName = place + "_map_layout";
+                        MongoCollection layoutCollection = MongoDBHelper.fetchCollection(database, collectionName);
+                        FloorLayout floorLayout = MongoDBHelper.generateMapLayout(layoutCollection, floor);
+
                         if(startFloor != endFloor) {
-                            endx = 3;
-                            endy = 6;
+                            endx = floorLayout.getExitx();
+                            endy = floorLayout.getExity();
                         }
 
                         AStarTest aStarTest = new AStarTest(startx, starty, endx, endy, floor, place);
 //                        List<Node> path = aStarTest.run();
-                        Path path = new Path(aStarTest.run());
+                        Path path = new Path(aStarTest.run(floorLayout));
                         String json = new Gson().toJson(path);
                         oos.writeObject(json);
                         oos.flush();

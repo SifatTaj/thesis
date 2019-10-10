@@ -85,6 +85,8 @@ public class MongoDBHelper {
         int width = doc.getInteger("width");
         String place = doc.getString("place");
         int floor = doc.getInteger("floor");
+        int exitx = doc.getInteger("exitx");
+        int exity = doc.getInteger("exity");
 
         List coordinateList = (List) doc.get("walls");
         int[][] walls = new int[coordinateList.size()][2];
@@ -97,6 +99,6 @@ public class MongoDBHelper {
             ++index;
         }
 
-        return new FloorLayout(place, floor, height, width, walls);
+        return new FloorLayout(place, floor, height, width, exitx, exity, walls);
     }
 }

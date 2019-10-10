@@ -42,16 +42,8 @@ public class AStarTest {
         return translatedCoordinates;
     }
 
-    public List<Node> run() {
+    public List<Node> run(FloorLayout floorLayout) {
 
-        String uri = "mongodb://localhost:27017";
-        String databaseName = place + "_rssi";
-        String collectionName = place + "_map_layout";
-
-        MongoDatabase fingerprintDatabase = MongoDBHelper.connectMongoDB(uri, databaseName);
-        MongoCollection layoutCollection = MongoDBHelper.fetchCollection(fingerprintDatabase, collectionName);
-
-        FloorLayout floorLayout = MongoDBHelper.generateMapLayout(layoutCollection, floor);
         yTranslateBy = floorLayout.getHeight() - 1;
 
         Node initialNode = createNode(startx, starty);
