@@ -101,4 +101,13 @@ public class MongoDBHelper {
 
         return new FloorLayout(place, floor, height, width, exitx, exity, walls);
     }
+
+    public static int detectFloor(MongoCollection floorCollection, float airPressure) {
+        Document doc = (Document) floorCollection.find().first();
+        int floors = doc.getInteger("floors");
+        double refPressure = doc.getDouble("ref");
+        double height = doc.getDouble("height");
+
+        double refPoint = (2.746 * refPressure) / .1;
+    }
 }

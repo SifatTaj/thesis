@@ -80,11 +80,17 @@ public class TcpServer {
                         }
 
                         AStarTest aStarTest = new AStarTest(startx, starty, endx, endy, floor, place);
-//                        List<Node> path = aStarTest.run();
                         Path path = new Path(aStarTest.run(floorLayout));
                         String json = new Gson().toJson(path);
                         oos.writeObject(json);
                         oos.flush();
+                    }
+
+                    else if (service.equalsIgnoreCase("detectFloor")) {
+                        float airPressure = Float.parseFloat(request[3]);
+                        String collectionName = place + "_floor_info";
+                        MongoCollection floorCollection = MongoDBHelper.fetchCollection(database, collectionName);
+
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
