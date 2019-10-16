@@ -48,7 +48,7 @@ public class AStarTest {
 
         Node initialNode = createNode(startx, starty);
         Node finalNode = createNode(endx,endy);
-        AStar aStar = new AStar(floorLayout.getHeight(), floorLayout.getWidth(), initialNode, finalNode, 10, 100);
+        AStar aStar = new AStar(floorLayout.getHeight(), floorLayout.getWidth(), initialNode, finalNode, 10, 15);
         int[][] blocksArray = createBlocks(floorLayout.getWalls());
         aStar.setBlocks(blocksArray);
         List<Node> path = aStar.findPath();

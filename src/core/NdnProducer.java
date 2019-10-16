@@ -1,8 +1,12 @@
 package core;
 
+import client.AStarTest;
+import com.google.gson.Gson;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import model.FloorLayout;
 import model.LocationWithNearbyPlaces;
+import model.Path;
 import model.ReferencePoint;
 import net.named_data.jndn.*;
 import net.named_data.jndn.security.KeyChain;
@@ -16,15 +20,9 @@ import java.util.ArrayList;
 
 public class NdnProducer {
 
-    static String apCollectionName = "3rd_floor_aps";
-    static String rpCollectionName = "3rd_floor_rps";
+    public static String uri;
 
-    public static void run(MongoDatabase database) {
-
-        MongoCollection apCollection = MongoDBHelper.fetchCollection(database, apCollectionName);
-        MongoCollection rpCollection = MongoDBHelper.fetchCollection(database, rpCollectionName);
-
-        ArrayList<ReferencePoint> referencePoints = MongoDBHelper.populateFingerprintDataSet(apCollection, rpCollection);
+    public static void run(String uri) {
 
         try {
             Face face = new Face();
@@ -38,10 +36,10 @@ public class NdnProducer {
             );
 
             face.setCommandSigningInfo(keyChain, keyChain.getDefaultCertificateName());
-            Name name = new Name("/findlocation");
+            Name name = new Name("/ips");
             System.out.println("Register prefix  " + name.toUri());
-            SendLocation sendLocation = new SendLocation(keyChain, referencePoints);
-            face.registerPrefix(name, sendLocation, sendLocation);
+            SendData sendData = new SendData(keyChain, uri);
+            face.registerPrefix(name, sendData, sendData);
 
             while (true) {
                 face.processEvents();
@@ -54,29 +52,80 @@ public class NdnProducer {
     }
 }
 
-class SendLocation implements OnInterestCallback, OnRegisterFailed {
+class SendData implements OnInterestCallback, OnRegisterFailed {
     private KeyChain keyChain;
+    private String uri;
     int responseCount = 0;
-    ArrayList<ReferencePoint> referencePoints;
 
-    public SendLocation(KeyChain keyChain, ArrayList<ReferencePoint> referencePoints) {
+    public SendData(KeyChain keyChain, String uri) {
         this.keyChain = keyChain;
-        this.referencePoints = referencePoints;
+        this.uri = uri;
     }
 
     @Override
     public void onInterest(Name name, Interest interest, Face face, long l, InterestFilter interestFilter) {
         ++responseCount;
         Data data = new Data(interest.getName());
-        String[] observedRSSString = interest.getName().toString().split("/");
-        ArrayList<Float> observedRSSValue = Convert.toList(observedRSSString[observedRSSString.length - 1]);
-        LocationWithNearbyPlaces location = KNN.KNN_WKNN_Algorithm(referencePoints, observedRSSValue, 4, true);
+        String[] request = interest.getName().toString().split("/");
+        String service = request[2];
+        String place = request[3];
+        int floor = Integer.parseInt(request[4]);
+
+        String databaseName = place + "_rssi";
+        MongoDatabase database = MongoDBHelper.connectMongoDB(uri, databaseName);
 
         try {
-            data.setContent(new Blob(location.getLocation()));
-            keyChain.sign(data);
-            face.putData(data);
-            System.out.println("New Location sent at " + System.currentTimeMillis());
+            if (service.equalsIgnoreCase("location")) {
+                String observedRSSValues = request[5];
+                ArrayList<Float> observedRSSList = Convert.toList(observedRSSValues);
+
+                MongoCollection apCollection = MongoDBHelper.fetchCollection(database, place + "_" + floor + "_ap");
+                MongoCollection rpCollection = MongoDBHelper.fetchCollection(database, place + "_" + floor + "_rp");
+
+                ArrayList<ReferencePoint> referencePoints = MongoDBHelper.populateFingerprintDataSet(apCollection, rpCollection);
+                LocationWithNearbyPlaces location = KNN.KNN_WKNN_Algorithm(referencePoints, observedRSSList, 4, true);
+                data.setContent(new Blob(location.getLocation()));
+                keyChain.sign(data);
+                face.putData(data);
+                System.out.println("Location sent");
+            }
+
+            else if (service.equalsIgnoreCase("loadmap")) {
+                MongoCollection mapCollection = MongoDBHelper.fetchCollection(database, place + "_map_layout");
+                FloorLayout floorLayout = MongoDBHelper.generateMapLayout(mapCollection, floor);
+                String json = new Gson().toJson(floorLayout);
+                data.setContent(new Blob(json));
+                keyChain.sign(data);
+                face.putData(data);
+                System.out.println("Maplayout sent");
+            }
+
+            else if (service.equalsIgnoreCase("navigate")) {
+                String[] coordinates = request[5].split("_");
+                int startx = Integer.parseInt(coordinates[0]);
+                int starty = Integer.parseInt(coordinates[1]);
+                int startFloor = Integer.parseInt(coordinates[2]);
+                int endx = Integer.parseInt(coordinates[3]);
+                int endy = Integer.parseInt(coordinates[4]);
+                int endFloor = Integer.parseInt(coordinates[5]);
+
+                String collectionName = place + "_map_layout";
+                MongoCollection layoutCollection = MongoDBHelper.fetchCollection(database, collectionName);
+                FloorLayout floorLayout = MongoDBHelper.generateMapLayout(layoutCollection, floor);
+
+                if(startFloor != endFloor) {
+                    endx = floorLayout.getExitx();
+                    endy = floorLayout.getExity();
+                }
+
+                AStarTest aStarTest = new AStarTest(startx, starty, endx, endy, floor, place);
+                Path path = new Path(aStarTest.run(floorLayout));
+                String json = new Gson().toJson(path);
+                data.setContent(new Blob(json));
+                keyChain.sign(data);
+                face.putData(data);
+                System.out.println("Navigation sent");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
