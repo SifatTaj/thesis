@@ -86,11 +86,13 @@ public class TcpServer {
                         oos.flush();
                     }
 
-                    else if (service.equalsIgnoreCase("detectFloor")) {
+                    else if (service.equalsIgnoreCase("detectfloor")) {
                         float airPressure = Float.parseFloat(request[3]);
                         String collectionName = place + "_floor_info";
                         MongoCollection floorCollection = MongoDBHelper.fetchCollection(database, collectionName);
-
+                        int detectedFloor = MongoDBHelper.detectFloor(floorCollection, airPressure);
+                        oos.writeObject(detectedFloor);
+                        oos.flush();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -5,15 +5,23 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/WiredTiger.turtle" beforeDir="false" afterPath="$PROJECT_DIR$/database/WiredTiger.turtle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/WiredTiger.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/WiredTiger.wt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/_mdb_catalog.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/_mdb_catalog.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/collection-0-3831411654782733321.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/collection-0-3831411654782733321.wt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/collection-2-3599149940074831622.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/collection-2-3599149940074831622.wt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/diagnostic.data/metrics.2019-10-16T14-23-45Z-00000" beforeDir="false" afterPath="$PROJECT_DIR$/database/diagnostic.data/metrics.2019-10-16T14-23-45Z-00000" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/collection-4-3599149940074831622.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/collection-4-3599149940074831622.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/diagnostic.data/metrics.2019-10-16T20-45-27Z-00000" beforeDir="false" afterPath="$PROJECT_DIR$/database/diagnostic.data/metrics.2019-10-16T20-45-27Z-00000" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/diagnostic.data/metrics.interim" beforeDir="false" afterPath="$PROJECT_DIR$/database/diagnostic.data/metrics.interim" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/index-3-3599149940074831622.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/index-3-3599149940074831622.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/index-5-3599149940074831622.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/index-5-3599149940074831622.wt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/index-6-3599149940074831622.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/index-6-3599149940074831622.wt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/journal/WiredTigerLog.0000000009" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/journal/WiredTigerLog.0000000010" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/database/mongod.lock" beforeDir="false" afterPath="$PROJECT_DIR$/database/mongod.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/sizeStorer.wt" beforeDir="false" afterPath="$PROJECT_DIR$/database/sizeStorer.wt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread$DiscoveryThreadHolder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread$DiscoveryThreadHolder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/DiscoveryThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/TCPServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/TCPServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Thesis/util/MongoDBHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/util/MongoDBHelper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/TcpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/TcpServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/util/MongoDBHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/MongoDBHelper.java" afterDir="false" />
     </list>

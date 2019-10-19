@@ -109,5 +109,10 @@ public class MongoDBHelper {
         double height = doc.getDouble("height");
 
         double refPoint = (2.746 * refPressure) / .1;
+        double alt = (2.746 * airPressure) / .1;
+        double elevation = refPoint - alt;
+        int floor = (int) Math.round(elevation/height);
+
+        return Math.min(floor, floors);
     }
 }
