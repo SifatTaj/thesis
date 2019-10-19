@@ -2,22 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db354a14-0d5b-4eb2-9e9c-c8056ac3a91a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/constant/Service.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/diagnostic.data/metrics.2019-10-19T05-06-14Z-00000" beforeDir="false" afterPath="$PROJECT_DIR$/database/diagnostic.data/metrics.2019-10-19T05-06-14Z-00000" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/diagnostic.data/metrics.interim" beforeDir="false" afterPath="$PROJECT_DIR$/database/diagnostic.data/metrics.interim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/KNN$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/KNN$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/KNN.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/KNN.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/NdnProducer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/NdnProducer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/SendData.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/SendData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/core/TCPServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Thesis/core/TCPServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Thesis/model/LocationWithNearbyPlaces.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/KNN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/KNN.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/AStarTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/AStar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/Navigation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/KNN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/Localization.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/NdnProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/NdnProducer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/TcpServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/TcpServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/LocationWithNearbyPlaces.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Location.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

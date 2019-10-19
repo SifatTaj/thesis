@@ -1,6 +1,5 @@
 package core;
 
-import client.AStarTest;
 import com.google.gson.Gson;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -46,7 +45,7 @@ public class TcpServer {
                         MongoCollection rpCollection = MongoDBHelper.fetchCollection(database, place + "_" + floor + "_rp");
 
                         ArrayList<ReferencePoint> referencePoints = MongoDBHelper.populateFingerprintDataSet(apCollection, rpCollection);
-                        Location location = KNN.KNN_WKNN_Algorithm(referencePoints, observedRSSList, 4, true);
+                        Location location = Localization.KNN_WKNN_Algorithm(referencePoints, observedRSSList, 4, true);
                         String json = new Gson().toJson(location);
                         oos.writeObject(json);
                         oos.flush();
@@ -79,8 +78,8 @@ public class TcpServer {
                             endy = floorLayout.getExity();
                         }
 
-                        AStarTest aStarTest = new AStarTest(startx, starty, endx, endy, floor, place);
-                        Path path = new Path(aStarTest.run(floorLayout));
+                        Navigation navigation = new Navigation(startx, starty, endx, endy, floor, place);
+                        Path path = new Path(navigation.run(floorLayout));
                         String json = new Gson().toJson(path);
                         oos.writeObject(json);
                         oos.flush();

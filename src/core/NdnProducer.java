@@ -1,6 +1,5 @@
 package core;
 
-import client.AStarTest;
 import com.google.gson.Gson;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -84,7 +83,7 @@ class SendData implements OnInterestCallback, OnRegisterFailed {
                 MongoCollection rpCollection = MongoDBHelper.fetchCollection(database, place + "_" + floor + "_rp");
 
                 ArrayList<ReferencePoint> referencePoints = MongoDBHelper.populateFingerprintDataSet(apCollection, rpCollection);
-                Location location = KNN.KNN_WKNN_Algorithm(referencePoints, observedRSSList, 4, true);
+                Location location = Localization.KNN_WKNN_Algorithm(referencePoints, observedRSSList, 4, true);
                 String json = new Gson().toJson(location);
                 data.setContent(new Blob(json));
                 keyChain.sign(data);
@@ -120,8 +119,8 @@ class SendData implements OnInterestCallback, OnRegisterFailed {
                     endy = floorLayout.getExity();
                 }
 
-                AStarTest aStarTest = new AStarTest(startx, starty, endx, endy, floor, place);
-                Path path = new Path(aStarTest.run(floorLayout));
+                Navigation navigation = new Navigation(startx, starty, endx, endy, floor, place);
+                Path path = new Path(navigation.run(floorLayout));
                 String json = new Gson().toJson(path);
                 data.setContent(new Blob(json));
                 keyChain.sign(data);

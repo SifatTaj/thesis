@@ -1,5 +1,6 @@
 package core;
 
+import model.FloorLayout;
 import model.Node;
 
 import java.util.*;
@@ -10,7 +11,60 @@ import java.util.*;
  * @author Marcelo Surriabre
  * @version 2.1, 2017-02-23
  */
-public class AStar {
+
+public class Navigation {
+
+    private final int startx;
+    private final int starty;
+    private final int endx;
+    private final int endy;
+    private final int floor;
+    private final String place;
+
+    public Navigation(int startx, int starty, int endx, int endy, int floor, String place) {
+        this.startx = startx;
+        this.starty = starty;
+        this.endx = endx;
+        this.endy = endy;
+        this.floor = floor;
+        this.place = place;
+    }
+
+    public static int yTranslateBy;
+
+    public static Node createNode(int x, int y) {
+        y = yTranslateBy - y;
+        return new Node(y,x);
+    }
+
+    public static int[][] createBlocks(int[][] blocks) {
+        int[][] translatedCoordinates = new int[blocks.length][2];
+        for (int i = 0 ; i < blocks.length ; ++i) {
+            translatedCoordinates[i] = new int[]{yTranslateBy - blocks[i][1], blocks[i][0]};
+        }
+        return translatedCoordinates;
+    }
+
+    public List<Node> run(FloorLayout floorLayout) {
+
+        yTranslateBy = floorLayout.getHeight() - 1;
+
+        Node initialNode = createNode(startx, starty);
+        Node finalNode = createNode(endx,endy);
+        AStar aStar = new AStar(floorLayout.getHeight(), floorLayout.getWidth(), initialNode, finalNode, 10, 15);
+        int[][] blocksArray = createBlocks(floorLayout.getWalls());
+        aStar.setBlocks(blocksArray);
+        List<Node> path = aStar.findPath();
+
+        for (Node node : path) {
+            node.setY(Math.abs(node.getY() - AStar.yTranslateBy));
+            System.out.println(node);
+        }
+        return path;
+    }
+}
+
+class AStar {
     private static int DEFAULT_HV_COST = 10; // Horizontal - Vertical Cost
     private static int DEFAULT_DIAGONAL_COST = 14;
     public static int yTranslateBy;

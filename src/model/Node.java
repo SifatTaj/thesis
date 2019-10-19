@@ -1,7 +1,5 @@
 package model;
 
-import core.AStar;
-
 public class Node {
 
     private int g;
