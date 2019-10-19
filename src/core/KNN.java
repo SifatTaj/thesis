@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class KNN {
-    public static LocationWithNearbyPlaces KNN_WKNN_Algorithm(ArrayList<ReferencePoint> recordedRSSValue, ArrayList<Float> observedRSSValues, int k, boolean isWeighted) {
+    public static Location KNN_WKNN_Algorithm(ArrayList<ReferencePoint> recordedRSSValue, ArrayList<Float> observedRSSValues, int k, boolean isWeighted) {
 
         ArrayList<AccessPoint> rssValues;
         float curResult;
@@ -38,7 +38,11 @@ public class KNN {
             myLocation = calculateWeightedAverageKDistanceLocations(locDistanceResultsList, k);
         }
 
-        return new LocationWithNearbyPlaces(myLocation, locDistanceResultsList);
+        String[] coordinates = myLocation.split(" ");
+        float x = Float.parseFloat(coordinates[0]);
+        float y = Float.parseFloat(coordinates[1]);
+
+        return new Location(myLocation, locDistanceResultsList, x, y);
 
     }
 

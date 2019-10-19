@@ -2,9 +2,9 @@ package core;
 
 import client.AStarTest;
 import com.google.gson.Gson;
-import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import constant.Service;
 import model.*;
 import util.Convert;
 import util.MongoDBHelper;
@@ -12,7 +12,6 @@ import util.MongoDBHelper;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TcpServer {
 
@@ -32,14 +31,14 @@ public class TcpServer {
                     String utf = ois.readUTF();
                     System.out.println(utf);
                     String[] request = utf.split("/");
-                    String service = request[0];
+                    Service service = Service.valueOf(request[0]);
                     String place = request[1];
                     int floor = Integer.parseInt(request[2]);
 
                     String databaseName = place + "_rssi";
                     MongoDatabase database = MongoDBHelper.connectMongoDB(uri, databaseName);
 
-                    if (service.equalsIgnoreCase("location")) {
+                    if (service == Service.LOCATE) {
                         String observedRSSValues = request[3];
                         ArrayList<Float> observedRSSList = Convert.toList(observedRSSValues);
 
@@ -47,13 +46,14 @@ public class TcpServer {
                         MongoCollection rpCollection = MongoDBHelper.fetchCollection(database, place + "_" + floor + "_rp");
 
                         ArrayList<ReferencePoint> referencePoints = MongoDBHelper.populateFingerprintDataSet(apCollection, rpCollection);
-                        LocationWithNearbyPlaces location = KNN.KNN_WKNN_Algorithm(referencePoints, observedRSSList, 4, true);
-                        oos.writeUTF(location.getLocation());
+                        Location location = KNN.KNN_WKNN_Algorithm(referencePoints, observedRSSList, 4, true);
+                        String json = new Gson().toJson(location);
+                        oos.writeObject(json);
                         oos.flush();
                         System.out.println("Location sent");
                     }
 
-                    else if (service.equalsIgnoreCase("loadmap")) {
+                    else if (service == Service.LOAD_MAP) {
                         MongoCollection mapCollection = MongoDBHelper.fetchCollection(database, place + "_map_layout");
                         FloorLayout floorLayout = MongoDBHelper.generateMapLayout(mapCollection, floor);
                         String json = new Gson().toJson(floorLayout);
@@ -61,7 +61,7 @@ public class TcpServer {
                         oos.flush();
                     }
 
-                    else if (service.equalsIgnoreCase("navigate")) {
+                    else if (service == Service.NAVIGATE) {
                         String[] coordinates = request[3].split("_");
                         int startx = Integer.parseInt(coordinates[0]);
                         int starty = Integer.parseInt(coordinates[1]);
@@ -74,7 +74,7 @@ public class TcpServer {
                         MongoCollection layoutCollection = MongoDBHelper.fetchCollection(database, collectionName);
                         FloorLayout floorLayout = MongoDBHelper.generateMapLayout(layoutCollection, floor);
 
-                        if(startFloor != endFloor) {
+                        if (startFloor != endFloor) {
                             endx = floorLayout.getExitx();
                             endy = floorLayout.getExity();
                         }
@@ -86,7 +86,7 @@ public class TcpServer {
                         oos.flush();
                     }
 
-                    else if (service.equalsIgnoreCase("detectfloor")) {
+                    else if (service == Service.DETECT_FLOOR) {
                         float airPressure = Float.parseFloat(request[3]);
                         String collectionName = place + "_floor_info";
                         MongoCollection floorCollection = MongoDBHelper.fetchCollection(database, collectionName);

@@ -4,8 +4,9 @@ import client.AStarTest;
 import com.google.gson.Gson;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import constant.Service;
 import model.FloorLayout;
-import model.LocationWithNearbyPlaces;
+import model.Location;
 import model.Path;
 import model.ReferencePoint;
 import net.named_data.jndn.*;
@@ -67,7 +68,7 @@ class SendData implements OnInterestCallback, OnRegisterFailed {
         ++responseCount;
         Data data = new Data(interest.getName());
         String[] request = interest.getName().toString().split("/");
-        String service = request[2];
+        Service service = Service.valueOf(request[2]);
         String place = request[3];
         int floor = Integer.parseInt(request[4]);
 
@@ -75,7 +76,7 @@ class SendData implements OnInterestCallback, OnRegisterFailed {
         MongoDatabase database = MongoDBHelper.connectMongoDB(uri, databaseName);
 
         try {
-            if (service.equalsIgnoreCase("location")) {
+            if (service == Service.LOCATE) {
                 String observedRSSValues = request[5];
                 ArrayList<Float> observedRSSList = Convert.toList(observedRSSValues);
 
@@ -83,14 +84,15 @@ class SendData implements OnInterestCallback, OnRegisterFailed {
                 MongoCollection rpCollection = MongoDBHelper.fetchCollection(database, place + "_" + floor + "_rp");
 
                 ArrayList<ReferencePoint> referencePoints = MongoDBHelper.populateFingerprintDataSet(apCollection, rpCollection);
-                LocationWithNearbyPlaces location = KNN.KNN_WKNN_Algorithm(referencePoints, observedRSSList, 4, true);
-                data.setContent(new Blob(location.getLocation()));
+                Location location = KNN.KNN_WKNN_Algorithm(referencePoints, observedRSSList, 4, true);
+                String json = new Gson().toJson(location);
+                data.setContent(new Blob(json));
                 keyChain.sign(data);
                 face.putData(data);
                 System.out.println("Location sent");
             }
 
-            else if (service.equalsIgnoreCase("loadmap")) {
+            else if (service == Service.LOAD_MAP) {
                 MongoCollection mapCollection = MongoDBHelper.fetchCollection(database, place + "_map_layout");
                 FloorLayout floorLayout = MongoDBHelper.generateMapLayout(mapCollection, floor);
                 String json = new Gson().toJson(floorLayout);
@@ -100,7 +102,7 @@ class SendData implements OnInterestCallback, OnRegisterFailed {
                 System.out.println("Maplayout sent");
             }
 
-            else if (service.equalsIgnoreCase("navigate")) {
+            else if (service == Service.NAVIGATE) {
                 String[] coordinates = request[5].split("_");
                 int startx = Integer.parseInt(coordinates[0]);
                 int starty = Integer.parseInt(coordinates[1]);
@@ -125,6 +127,17 @@ class SendData implements OnInterestCallback, OnRegisterFailed {
                 keyChain.sign(data);
                 face.putData(data);
                 System.out.println("Navigation sent");
+            }
+
+            else if (service == Service.DETECT_FLOOR) {
+                float airPressure = Float.parseFloat(request[5]);
+                String collectionName = place + "_floor_info";
+                MongoCollection floorCollection = MongoDBHelper.fetchCollection(database, collectionName);
+                int detectedFloor = MongoDBHelper.detectFloor(floorCollection, airPressure);
+                data.setContent(new Blob(detectedFloor + ""));
+                keyChain.sign(data);
+                face.putData(data);
+                System.out.println("Floor sent");
             }
         } catch (Exception e) {
             e.printStackTrace();

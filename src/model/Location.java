@@ -2,14 +2,25 @@ package model;
 
 import java.util.ArrayList;
 
-public class LocationWithNearbyPlaces {
+public class Location {
 
     private String location;
     private ArrayList<LocDistance> places;
+    private float x, y;
 
-    public LocationWithNearbyPlaces(String location, ArrayList<LocDistance> places) {
+    public Location(String location, ArrayList<LocDistance> places, float x, float y) {
         this.location = location;
         this.places = places;
+        this.x = x;
+        this.y = y;
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
     }
 
     public String getLocation() {
