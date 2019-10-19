@@ -87,9 +87,11 @@ public class TcpServer {
 
                     else if (service == Service.DETECT_FLOOR) {
                         float airPressure = Float.parseFloat(request[3]);
-                        String collectionName = place + "_floor_info";
+                        String collectionName = place + "_building_info";
                         MongoCollection floorCollection = MongoDBHelper.fetchCollection(database, collectionName);
-                        int detectedFloor = MongoDBHelper.detectFloor(floorCollection, airPressure);
+                        BuildingInfo buildingInfo = MongoDBHelper.detectFloor(floorCollection, airPressure);
+                        FloorDetection floorDetection = new FloorDetection(buildingInfo, airPressure);
+                        int detectedFloor = floorDetection.detectFloor();
                         oos.writeObject(detectedFloor);
                         oos.flush();
                     }

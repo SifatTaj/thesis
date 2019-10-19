@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import constant.Service;
-import model.FloorLayout;
-import model.Location;
-import model.Path;
-import model.ReferencePoint;
+import model.*;
 import net.named_data.jndn.*;
 import net.named_data.jndn.security.KeyChain;
 import net.named_data.jndn.security.SafeBag;
@@ -130,9 +127,11 @@ class SendData implements OnInterestCallback, OnRegisterFailed {
 
             else if (service == Service.DETECT_FLOOR) {
                 float airPressure = Float.parseFloat(request[5]);
-                String collectionName = place + "_floor_info";
+                String collectionName = place + "_building_info";
                 MongoCollection floorCollection = MongoDBHelper.fetchCollection(database, collectionName);
-                int detectedFloor = MongoDBHelper.detectFloor(floorCollection, airPressure);
+                BuildingInfo buildingInfo = MongoDBHelper.detectFloor(floorCollection, airPressure);
+                FloorDetection floorDetection = new FloorDetection(buildingInfo, airPressure);
+                int detectedFloor = floorDetection.detectFloor();
                 data.setContent(new Blob(detectedFloor + ""));
                 keyChain.sign(data);
                 face.putData(data);

@@ -6,6 +6,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import model.AccessPoint;
+import model.BuildingInfo;
 import model.FloorLayout;
 import model.ReferencePoint;
 import org.bson.Document;
@@ -102,17 +103,12 @@ public class MongoDBHelper {
         return new FloorLayout(place, floor, height, width, exitx, exity, walls);
     }
 
-    public static int detectFloor(MongoCollection floorCollection, float airPressure) {
+    public static BuildingInfo detectFloor(MongoCollection floorCollection, float airPressure) {
         Document doc = (Document) floorCollection.find().first();
-        int floors = doc.getInteger("floors");
-        double refPressure = doc.getDouble("ref");
-        double height = doc.getDouble("height");
+        int stories = doc.getInteger("stories");
+        double refPressure = doc.getDouble("reference_pressure");
+        double floorHeight = doc.getDouble("floor_height");
 
-        double refPoint = (2.746 * refPressure) / .1;
-        double alt = (2.746 * airPressure) / .1;
-        double elevation = refPoint - alt;
-        int floor = (int) Math.round(elevation/height);
-
-        return Math.min(floor, floors);
+        return new BuildingInfo(stories, refPressure, floorHeight);
     }
 }

@@ -13,8 +13,8 @@ public class Main {
 //        String uri = "mongodb+srv://admin:admin@thesis-a6lvz.mongodb.net/test?retryWrites=true&w=majority";
         String uri = "mongodb://localhost:27017";
 
-//        TcpServer.run(uri);
-        NdnProducer.run(uri);
+        TcpServer.run(uri);
+//        NdnProducer.run(uri);
     }
 }
 
