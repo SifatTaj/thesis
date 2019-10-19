@@ -90,15 +90,7 @@ public class MongoDBHelper {
         int exity = doc.getInteger("exity");
 
         List coordinateList = (List) doc.get("walls");
-        int[][] walls = new int[coordinateList.size()][2];
-        int index = 0;
-        for (Object coordinates : coordinateList) {
-            List values = (List) coordinates;
-            int x = (Integer) values.get(0);
-            int y = (Integer) values.get(1);
-            walls[index] = new int[]{x, y};
-            ++index;
-        }
+        int[][] walls = Convert.toArray(coordinateList);
 
         return new FloorLayout(place, floor, height, width, exitx, exity, walls);
     }

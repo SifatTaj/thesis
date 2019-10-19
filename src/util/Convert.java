@@ -1,6 +1,7 @@
 package util;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Convert {
     public static ArrayList<Float> toList(String string) {
@@ -16,5 +17,19 @@ public class Convert {
         }
 
         return list;
+    }
+
+    public static int[][] toArray(List<Object> coordinateList) {
+        int[][] array = new int[coordinateList.size()][2];
+        int index = 0;
+        for (Object coordinates : coordinateList) {
+            List values = (List) coordinates;
+            int x = (Integer) values.get(0);
+            int y = (Integer) values.get(1);
+            array[index] = new int[]{x, y};
+            ++index;
+        }
+
+        return array;
     }
 }
