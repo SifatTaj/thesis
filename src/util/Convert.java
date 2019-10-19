@@ -19,7 +19,7 @@ public class Convert {
         return list;
     }
 
-    public static int[][] toArray(List<Object> coordinateList) {
+    public static int[][] toArray(List coordinateList) {
         int[][] array = new int[coordinateList.size()][2];
         int index = 0;
         for (Object coordinates : coordinateList) {
