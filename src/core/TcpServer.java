@@ -3,6 +3,7 @@ package core;
 import com.google.gson.Gson;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import constant.Config;
 import constant.Service;
 import model.*;
 import util.Convert;
@@ -18,10 +19,11 @@ public class TcpServer {
 //        Thread discoveryThread = new Thread(DiscoveryThread.getInstance());
 //        discoveryThread.start();
         try {
-            ServerSocket serverSocket = new ServerSocket(5000);
+            ServerSocket serverSocket = new ServerSocket(Config.tcpServerPort);
 
             while (true) {
                 System.out.println("Fingerprint server is running");
+                System.out.println("Listening to port " + serverSocket.getLocalPort());
                 Socket socket = serverSocket.accept();
                 ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
@@ -54,7 +56,8 @@ public class TcpServer {
 
                     else if (service == Service.LOAD_MAP) {
                         MongoCollection mapCollection = MongoDBHelper.fetchCollection(database, place + "_map_layout");
-                        FloorLayout floorLayout = MongoDBHelper.generateMapLayout(mapCollection, floor);
+                        MongoCollection apCollection = MongoDBHelper.fetchCollection(database, place + "_" + floor + "_ap");
+                        FloorLayout floorLayout = MongoDBHelper.generateMapLayout(mapCollection, apCollection, floor);
                         String json = new Gson().toJson(floorLayout);
                         oos.writeObject(json);
                         oos.flush();
@@ -71,7 +74,8 @@ public class TcpServer {
 
                         String collectionName = place + "_map_layout";
                         MongoCollection layoutCollection = MongoDBHelper.fetchCollection(database, collectionName);
-                        FloorLayout floorLayout = MongoDBHelper.generateMapLayout(layoutCollection, floor);
+                        MongoCollection apCollection = MongoDBHelper.fetchCollection(database, place + "_" + floor + "_ap");
+                        FloorLayout floorLayout = MongoDBHelper.generateMapLayout(layoutCollection, apCollection, floor);
 
                         if (startFloor != endFloor) {
                             endx = floorLayout.getExitx();

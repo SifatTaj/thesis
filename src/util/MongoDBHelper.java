@@ -1,7 +1,9 @@
 package util;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
@@ -33,7 +35,7 @@ public class MongoDBHelper {
         int i = 0;
         ArrayList<AccessPoint> accessPoints = new ArrayList<>();
 
-        MongoCursor<Document> apCursor = ap.find().iterator();
+        MongoCursor<Document> apCursor = ap.find().sort(new BasicDBObject("order",1)).iterator();
         try {
             while (apCursor.hasNext()) {
                 Document apDocument = apCursor.next();
@@ -78,7 +80,7 @@ public class MongoDBHelper {
         return referencePoints;
     }
 
-    public static FloorLayout generateMapLayout(MongoCollection mapCollection, int floorQuery) {
+    public static FloorLayout generateMapLayout(MongoCollection mapCollection, MongoCollection apCollection, int floorQuery) {
 
         Document doc = (Document) mapCollection.find(eq("floor", floorQuery)).first();
 
@@ -92,7 +94,30 @@ public class MongoDBHelper {
         List coordinateList = (List) doc.get("walls");
         int[][] walls = Convert.toArray(coordinateList);
 
-        return new FloorLayout(place, floor, height, width, exitx, exity, walls);
+
+        ArrayList<AccessPoint> aps = new ArrayList<>();
+
+
+        FindIterable iterable = apCollection.find().sort(new BasicDBObject("order", 1));
+        MongoCursor<Document> apCursor = iterable.iterator();
+        try {
+            while (apCursor.hasNext()) {
+                Document apDocument = apCursor.next();
+                aps.add(new AccessPoint(
+                        apDocument.get("_id").toString(),
+                        apDocument.getString("description"),
+                        apDocument.getString("ssid"),
+                        apDocument.getString("mac_address"),
+                        apDocument.getInteger("x"),
+                        apDocument.getInteger("y"),
+                        0
+                ));
+            }
+        } finally {
+            apCursor.close();
+        }
+
+        return new FloorLayout(place, floor, height, width, exitx, exity, walls, aps);
     }
 
     public static BuildingInfo detectFloor(MongoCollection floorCollection, float airPressure) {

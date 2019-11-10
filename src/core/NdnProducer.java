@@ -3,6 +3,7 @@ package core;
 import com.google.gson.Gson;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import constant.Config;
 import constant.Service;
 import model.*;
 import net.named_data.jndn.*;
@@ -22,7 +23,7 @@ public class NdnProducer {
     public static void run(String uri) {
 
         try {
-            Face face = new Face();
+            Face face = new Face(Config.nfdAddress);
 
             KeyChain keyChain = new KeyChain("pib-memory:", "tpm-memory:");
             keyChain.importSafeBag(new SafeBag
@@ -90,7 +91,8 @@ class SendData implements OnInterestCallback, OnRegisterFailed {
 
             else if (service == Service.LOAD_MAP) {
                 MongoCollection mapCollection = MongoDBHelper.fetchCollection(database, place + "_map_layout");
-                FloorLayout floorLayout = MongoDBHelper.generateMapLayout(mapCollection, floor);
+                MongoCollection apCollection = MongoDBHelper.fetchCollection(database, place + "_" + floor + "_ap");
+                FloorLayout floorLayout = MongoDBHelper.generateMapLayout(mapCollection, apCollection, floor);
                 String json = new Gson().toJson(floorLayout);
                 data.setContent(new Blob(json));
                 keyChain.sign(data);
@@ -109,7 +111,8 @@ class SendData implements OnInterestCallback, OnRegisterFailed {
 
                 String collectionName = place + "_map_layout";
                 MongoCollection layoutCollection = MongoDBHelper.fetchCollection(database, collectionName);
-                FloorLayout floorLayout = MongoDBHelper.generateMapLayout(layoutCollection, floor);
+                MongoCollection apCollection = MongoDBHelper.fetchCollection(database, place + "_" + floor + "_ap");
+                FloorLayout floorLayout = MongoDBHelper.generateMapLayout(layoutCollection, apCollection, floor);
 
                 if(startFloor != endFloor) {
                     endx = floorLayout.getExitx();
