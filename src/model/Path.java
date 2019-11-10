@@ -3,13 +3,9 @@ package model;
 import java.util.List;
 
 public class Path {
-    private List<Node> nodes;
+    public List<Waypoint> waypoints;
 
-    public Path(List<Node> nodes) {
-        this.nodes = nodes;
-    }
-
-    public List<Node> getNodes() {
-        return nodes;
+    public Path(List<Waypoint> waypoints) {
+        this.waypoints = waypoints;
     }
 }

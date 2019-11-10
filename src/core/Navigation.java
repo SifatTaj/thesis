@@ -2,6 +2,7 @@ package core;
 
 import model.FloorLayout;
 import model.Node;
+import model.Waypoint;
 
 import java.util.*;
 
@@ -45,7 +46,7 @@ public class Navigation {
         return translatedCoordinates;
     }
 
-    public List<Node> run(FloorLayout floorLayout) {
+    public List<Waypoint> run(FloorLayout floorLayout) {
 
         yTranslateBy = floorLayout.getHeight() - 1;
 
@@ -56,11 +57,16 @@ public class Navigation {
         aStar.setBlocks(blocksArray);
         List<Node> path = aStar.findPath();
 
+        List<Waypoint> waypoints = new ArrayList<>();
+
         for (Node node : path) {
             node.setY(Math.abs(node.getY() - AStar.yTranslateBy));
+            waypoints.add(new Waypoint(node.getX(), node.getY()));
             System.out.println(node);
         }
-        return path;
+
+        return waypoints;
+
     }
 }
 
