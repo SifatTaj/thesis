@@ -64,6 +64,7 @@ class SendData implements OnInterestCallback, OnRegisterFailed {
     public void onInterest(Name name, Interest interest, Face face, long l, InterestFilter interestFilter) {
         ++responseCount;
         Data data = new Data(interest.getName());
+
         String[] request = interest.getName().toString().split("/");
         Service service = Service.valueOf(request[2]);
         String place = request[3];

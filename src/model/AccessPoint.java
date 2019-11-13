@@ -5,7 +5,7 @@ public class AccessPoint {
     private String id;
     private String description;
     private String ssid;
-    private String mac_address;
+    private String mac;
     private double x;
     private double y;
     private double meanRss;//for RP (-50 to -100)
@@ -14,11 +14,11 @@ public class AccessPoint {
 //    Low quality: 30% ~= -85db
 //    Unusable quality: 8% ~= -96db
 
-    public AccessPoint(String id, String description, String ssid, String mac_address, double x, double y, double meanRss) {
+    public AccessPoint(String id, String description, String ssid, String mac, double x, double y, double meanRss) {
         this.id = id;
         this.description = description;
         this.ssid = ssid;
-        this.mac_address = mac_address;
+        this.mac = mac;
         this.x = x;
         this.y = y;
         this.meanRss = meanRss;
@@ -36,8 +36,8 @@ public class AccessPoint {
         return ssid;
     }
 
-    public String getMac_address() {
-        return mac_address;
+    public String getMac() {
+        return mac;
     }
 
     public double getX() {

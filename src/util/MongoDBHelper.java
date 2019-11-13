@@ -43,7 +43,7 @@ public class MongoDBHelper {
                         apDocument.get("_id").toString(),
                         apDocument.getString("description"),
                         apDocument.getString("ssid"),
-                        apDocument.getString("mac_address"),
+                        apDocument.getString("mac"),
                         apDocument.getInteger("x"),
                         apDocument.getInteger("y"),
                         Double.parseDouble("" + readings.get(i))
@@ -107,7 +107,7 @@ public class MongoDBHelper {
                         apDocument.get("_id").toString(),
                         apDocument.getString("description"),
                         apDocument.getString("ssid"),
-                        apDocument.getString("mac_address"),
+                        apDocument.getString("mac"),
                         apDocument.getInteger("x"),
                         apDocument.getInteger("y"),
                         0
