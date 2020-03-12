@@ -41,7 +41,7 @@ public class NdnProducer {
 
             while (true) {
                 face.processEvents();
-//                Thread.sleep(5);
+                Thread.sleep(5);
             }
 
         } catch (Exception e) {
@@ -63,6 +63,7 @@ class SendData implements OnInterestCallback, OnRegisterFailed {
     @Override
     public void onInterest(Name name, Interest interest, Face face, long l, InterestFilter interestFilter) {
         ++responseCount;
+        System.out.println(interest.getName());
         Data data = new Data(interest.getName());
 
         String[] request = interest.getName().toString().split("/");

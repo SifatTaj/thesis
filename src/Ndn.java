@@ -1,6 +1,8 @@
 import constant.Config;
 import core.NdnProducer;
 
+import java.util.Scanner;
+
 public class Ndn {
 
   public static void main(String[] args) {

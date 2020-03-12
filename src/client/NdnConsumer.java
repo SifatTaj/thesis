@@ -12,7 +12,7 @@ public class NdnConsumer {
         try {
             Face face = new Face();
             ReceiveLocation receiveLocation = new ReceiveLocation();
-            Name name = new Name("/findlocation/-91_-67_-75_-33");
+            Name name = new Name("/ips/NAVIGATE/idb/3/1_1_1_2_2_1");
             face.expressInterest(name, receiveLocation, receiveLocation);
             while (receiveLocation.callbackCount < 1) {
                 face.processEvents();
@@ -34,6 +34,8 @@ class ReceiveLocation implements OnData, OnTimeout {
         ++callbackCount;
         String location = data.getContent().toString();
         System.out.println(location);
+        System.out.println();
+        System.out.println(location.length());
     }
 
     @Override
