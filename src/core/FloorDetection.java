@@ -14,7 +14,7 @@ public class FloorDetection {
     public int detectFloor() {
         double refPoint = (2.746 * buildingInfo.getRefPressure()) / .1;
         double alt = (2.746 * airPressure) / .1;
-        double elevation = refPoint - alt;
+        double elevation = alt - refPoint;
         int floor = (int) Math.round(elevation / buildingInfo.getFloorHeight());
 
         return Math.min(floor, buildingInfo.getStories());
